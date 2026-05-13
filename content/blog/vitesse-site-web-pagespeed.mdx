@@ -1,0 +1,114 @@
+---
+title: "Vitesse de Site Web : Pourquoi PageSpeed 90+ est Non-Négociable en 2024"
+description: "Google pénalise les sites lents. Découvrez pourquoi la performance est un facteur SEO majeur et comment atteindre un score PageSpeed 90+ pour convertir plus."
+date: "2024-02-08"
+category: "Performance"
+readTime: "8 min"
+author: "Veaseo"
+featured: false
+---
+
+Chaque seconde de chargement supplémentaire coûte des clients. Ce n'est pas une opinion — c'est une donnée mesurée par Google lui-même.
+
+## Les chiffres qui font froid dans le dos
+
+- **53%** des visiteurs mobiles quittent un site qui met plus de **3 secondes** à charger
+- Un délai d'1 seconde réduit les conversions de **7%**
+- Amazon a calculé qu'une page 100ms plus lente leur coûte **1% de ventes**
+
+Pour une PME locale, c'est probablement votre plus grand frein à la conversion — et personne ne vous en a parlé.
+
+## Pourquoi Google pénalise les sites lents
+
+Depuis le déploiement des **Core Web Vitals** comme facteur de classement (2021), la vitesse impacte directement vos positions. Les 3 métriques clés :
+
+### LCP (Largest Contentful Paint)
+Mesure le temps d'affichage de l'élément principal de la page.
+- ✅ Bon : < 2.5 secondes
+- ⚠️ À améliorer : 2.5 – 4 secondes
+- ❌ Mauvais : > 4 secondes
+
+### INP (Interaction to Next Paint)
+Mesure la réactivité aux interactions utilisateur.
+- ✅ Bon : < 200 ms
+- ⚠️ À améliorer : 200 – 500 ms
+- ❌ Mauvais : > 500 ms
+
+### CLS (Cumulative Layout Shift)
+Mesure la stabilité visuelle (les éléments qui bougent pendant le chargement).
+- ✅ Bon : < 0.1
+- ⚠️ À améliorer : 0.1 – 0.25
+- ❌ Mauvais : > 0.25
+
+## Comment atteindre 90+ sur PageSpeed
+
+### 1. Optimisez vos images
+
+Les images sont la cause #1 de lenteur. Solution :
+
+```html
+<!-- Mauvais : image PNG non optimisée -->
+<img src="photo.png" />
+
+<!-- Bon : format WebP/AVIF avec lazy loading -->
+<img 
+  src="photo.webp" 
+  loading="lazy" 
+  decoding="async"
+  width="800" 
+  height="600"
+  alt="Description"
+/>
+```
+
+Avec Next.js, le composant `<Image />` gère tout ça automatiquement.
+
+### 2. Minimisez le JavaScript
+
+Chaque ko de JS retarde le rendu. Stratégies :
+- **Code splitting** : n'envoyez que le JS nécessaire à la page courante
+- **Lazy loading des composants** : chargez les modules non-critiques après l'interaction
+- **Supprimez les librairies inutiles** : vérifiez votre bundle analyzer
+
+### 3. Activez la mise en cache
+
+```nginx
+# Dans votre config serveur (exemple Nginx)
+location ~* \.(jpg|jpeg|png|gif|ico|css|js|webp|woff2)$ {
+    expires 1y;
+    add_header Cache-Control "public, no-transform";
+}
+```
+
+### 4. Utilisez un CDN
+
+Un CDN (Content Delivery Network) sert vos fichiers depuis le serveur le plus proche de l'utilisateur. Vercel et Netlify l'incluent nativement.
+
+### 5. Optimisez les polices
+
+```html
+<!-- Préchargez vos polices critiques -->
+<link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+```
+
+## L'impact business réel
+
+Voici un exemple concret d'un client Veaseo (plombier Paris) :
+
+**Avant refonte :**
+- Score PageSpeed mobile : 38/100
+- Temps de chargement : 6.2 secondes
+- Taux de rebond mobile : 78%
+- Appels depuis le site : 3-4/semaine
+
+**Après refonte + optimisation :**
+- Score PageSpeed mobile : 94/100
+- Temps de chargement : 1.4 secondes
+- Taux de rebond mobile : 41%
+- Appels depuis le site : 18-22/semaine
+
+**Résultat : +450% de contacts en 3 mois**, sans augmenter le budget pub.
+
+---
+
+Testez votre site dès maintenant sur [PageSpeed Insights](https://pagespeed.web.dev). Si votre score est inférieur à 70, vous perdez des clients chaque jour.

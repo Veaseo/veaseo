@@ -2,26 +2,139 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --orange: #FF6B35;
+  --orange-dark: #F04E14;
+  --dark: #0A0A0F;
+  --dark-800: #141420;
+  --dark-700: #1E1E30;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0A0A0F;
+  color: #F0F0F5;
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Scrollbar custom */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0F;
+}
+::-webkit-scrollbar-thumb {
+  background: #FF6B35;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F04E14;
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 107, 53, 0.3);
+  color: #fff;
+}
+
+@layer components {
+  /* Boutons */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:shadow-orange hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:-translate-y-0.5;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 text-dark-200 hover:text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:bg-white/5;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-dark-800 border border-white/5 rounded-2xl p-6 hover:border-orange-500/30 transition-all duration-300 hover:shadow-card;
+  }
+  .card-glow {
+    @apply card hover:shadow-orange;
+  }
+
+  /* Gradients texte */
+  .text-gradient {
+    @apply bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent;
+  }
+  .text-gradient-white {
+    @apply bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent;
+  }
+
+  /* Section layout */
+  .section-padding {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1.5 text-xs font-semibold text-orange-400 bg-orange-500/10 border border-orange-500/20 px-3 py-1 rounded-full;
+  }
+
+  /* Divider */
+  .divider-orange {
+    @apply w-12 h-1 bg-gradient-orange rounded-full;
+  }
+
+  /* Input */
+  .input-dark {
+    @apply w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-dark-400 focus:outline-none focus:border-orange-500 transition-colors duration-200;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+  .bg-grid {
+    background-image: linear-gradient(rgba(255,107,53,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,107,53,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .bg-noise {
+    position: relative;
+  }
+  .bg-noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+  .clip-hero {
+    clip-path: ellipse(80% 60% at 50% 40%);
+  }
+}
+
+/* Animations on scroll - handled via Framer Motion but base styles */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }

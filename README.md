@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Veaseo – Site Vitrine Next.js 14
 
-## Getting Started
+Site web vitrine complet pour Veaseo, webdesigner spécialisé SEO pour entreprises locales.
 
-First, run the development server:
+## Stack technique
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Framework** : Next.js 14 (App Router)
+- **Styling** : Tailwind CSS + Typography plugin
+- **Blog** : MDX via `next-mdx-remote`
+- **Animations** : CSS natif (IntersectionObserver)
+- **Typo** : Inter (Google Fonts)
+- **Icons** : Lucide React
+- **Déploiement** : Vercel
+
+## Structure du projet
+
+```
+/app
+  layout.tsx          ← Layout global (Navbar, Footer, SEO, Schema.org)
+  page.tsx            ← Accueil (Hero, Services, Témoignages, FAQ, CTA)
+  sitemap.ts          ← Sitemap.xml automatique
+  robots.ts           ← Robots.txt
+  not-found.tsx       ← Page 404 personnalisée
+  /services           ← Page index + 4 sous-pages
+  /a-propos           ← Page À propos
+  /realisations       ← Portfolio
+  /blog               ← Blog index + [slug] (MDX)
+  /contact            ← Formulaire de contact
+  /mentions-legales   ← Mentions légales
+
+/components
+  Navbar.tsx          ← Navigation sticky responsive
+  Footer.tsx          ← Pied de page avec CTA
+  ContactForm.tsx     ← Formulaire de contact (client)
+  /ui
+    AnimatedSection   ← Animations au scroll (IntersectionObserver)
+    AstronautIllustration ← Illustration SVG astronaute
+    CTABanner         ← Bannière CTA réutilisable
+    SectionHeader     ← En-tête de section réutilisable
+
+/content/blog         ← Articles au format MDX
+/lib
+  blog.ts             ← Helpers lecture des fichiers MDX
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation locale
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cd veaseo
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Ouvre [http://localhost:3000](http://localhost:3000)
 
-## Learn More
+## Ajouter un article de blog
 
-To learn more about Next.js, take a look at the following resources:
+Créer un fichier `.mdx` dans `/content/blog/` :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```mdx
+---
+title: "Titre de l'article"
+description: "Description SEO de l'article (max 160 caractères)"
+date: "2024-03-15"
+category: "SEO Local"
+readTime: "8 min"
+author: "Veaseo"
+featured: false
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Contenu MDX ici...
+```
 
-## Deploy on Vercel
+## Déploiement sur Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Option 1 : Via l'interface Vercel (recommandé)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Pushez votre code sur GitHub
+2. Connectez-vous sur [vercel.com](https://vercel.com)
+3. Cliquez **Add New Project** → importez votre dépôt
+4. Vercel détecte automatiquement Next.js
+5. Cliquez **Deploy**
+
+### Option 2 : Via la CLI Vercel
+
+```bash
+npm i -g vercel
+vercel login
+vercel --prod
+```
+
+## Variables d'environnement
+
+Aucune variable requise pour la version de base. Pour les intégrations futures :
+
+```env
+# .env.local (ne jamais commiter)
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+RESEND_API_KEY=re_xxxxxxxxxxxx
+```
+
+## Checklist avant lancement
+
+- [ ] Remplacer `veaseo.fr` par votre domaine réel dans `app/layout.tsx` et `app/sitemap.ts`
+- [ ] Ajouter votre token Google Search Console dans `metadata.verification.google`
+- [ ] Compléter le SIRET dans `app/mentions-legales/page.tsx`
+- [ ] Ajouter l'image OG réelle (`/public/og-image.jpg`, 1200×630px)
+- [ ] Connecter un service email pour le formulaire de contact (Resend.com recommandé)
+- [ ] Configurer Google Analytics 4
+- [ ] Soumettre le sitemap dans Google Search Console
+- [ ] Vérifier les Core Web Vitals sur PageSpeed Insights

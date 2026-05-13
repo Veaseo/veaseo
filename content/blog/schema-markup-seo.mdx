@@ -1,0 +1,110 @@
+---
+title: "Schema.org : Comment les Données Structurées Boostent votre SEO"
+description: "Les données structurées Schema.org permettent à Google de mieux comprendre votre contenu et d'afficher des rich snippets. Guide pratique pour les entreprises locales."
+date: "2024-03-12"
+category: "SEO Technique"
+readTime: "7 min"
+author: "Veaseo"
+featured: false
+---
+
+Si vous n'utilisez pas Schema.org, vous passez à côté d'un avantage concurrentiel majeur. Les données structurées permettent à Google d'afficher des **rich snippets** dans les résultats — étoiles, prix, FAQ, événements — qui augmentent drastiquement votre taux de clic.
+
+## Qu'est-ce que Schema.org ?
+
+Schema.org est un vocabulaire standard pour structurer les données de vos pages. Vous l'intégrez via du JSON-LD dans votre HTML, et Google l'utilise pour enrichir vos résultats de recherche.
+
+## Les types Schema.org essentiels pour les entreprises locales
+
+### 1. LocalBusiness
+
+Le plus important pour vous. Il signale à Google votre activité, votre adresse, vos horaires.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Votre Entreprise",
+  "description": "Description de votre activité",
+  "url": "https://votre-site.fr",
+  "telephone": "+33 1 XX XX XX XX",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 rue de la Paix",
+    "addressLocality": "Paris",
+    "postalCode": "75001",
+    "addressCountry": "FR"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  ],
+  "priceRange": "€€"
+}
+```
+
+### 2. FAQPage
+
+Affiche vos questions-réponses directement dans les résultats Google — un espace considérable que vos concurrents n'occupent probablement pas encore.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quelle est votre zone d'intervention ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nous intervenons dans tout Paris et la petite couronne."
+      }
+    }
+  ]
+}
+```
+
+### 3. Review / AggregateRating
+
+Affichez vos étoiles dans les résultats Google. Impact direct sur le CTR.
+
+### 4. Service
+
+Décrivez précisément chaque service que vous proposez pour un meilleur matching avec les requêtes.
+
+## Comment intégrer Schema.org dans Next.js
+
+```tsx
+// Dans votre composant de page
+export default function Page() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            // ... vos données
+          })
+        }}
+      />
+      {/* Votre contenu */}
+    </>
+  );
+}
+```
+
+## L'impact sur vos positions
+
+Les données structurées n'améliorent pas directement votre position, mais elles augmentent votre **CTR (taux de clic)**, ce qui envoie un signal positif à Google et améliore indirectement vos positions.
+
+Des études montrent que les rich snippets augmentent le CTR de **20 à 30%** en moyenne.
+
+---
+
+La mise en place des données structurées est une action technique à fort impact et relativement rapide à implémenter. Si votre site ne l'utilise pas encore, c'est une opportunité à saisir dès maintenant.
