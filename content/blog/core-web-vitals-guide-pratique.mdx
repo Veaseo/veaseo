@@ -1,0 +1,178 @@
+---
+title: "Core Web Vitals 2025 : Le Guide Pratique pour Passer au Vert"
+description: "Comprendre et améliorer les Core Web Vitals (LCP, CLS, INP) de votre site. Méthode pratique pour passer en zone verte et booster votre SEO."
+date: "2024-12-15"
+category: "Performance"
+readTime: "10 min"
+author: "Veaseo"
+---
+
+Depuis 2021, **Google utilise les Core Web Vitals** comme **facteur de ranking** officiel. En clair : si votre site est lent, vous descendez dans les résultats. Et la concurrence vous double.
+
+Voici la version pratique du guide Core Web Vitals — sans le blabla technique inutile, juste les actions qui font passer votre site **en zone verte**.
+
+## Les 3 Core Web Vitals à connaître
+
+Depuis 2024, Google mesure 3 métriques principales (le **CWV** = Core Web Vitals) :
+
+### 1. LCP — Largest Contentful Paint
+
+**Ce que ça mesure** : le temps que met le **plus gros élément visible** de la page (souvent l'image hero) pour s'afficher.
+
+| Score | Statut |
+|---|---|
+| < 2,5s | 🟢 Bon |
+| 2,5s - 4,0s | 🟡 À améliorer |
+| > 4,0s | 🔴 Mauvais |
+
+### 2. CLS — Cumulative Layout Shift
+
+**Ce que ça mesure** : à quel point les éléments **bougent** pendant le chargement (vous avez déjà cliqué sur un bouton qui s'est déplacé au dernier moment ? C'est ça.).
+
+| Score | Statut |
+|---|---|
+| < 0,1 | 🟢 Bon |
+| 0,1 - 0,25 | 🟡 À améliorer |
+| > 0,25 | 🔴 Mauvais |
+
+### 3. INP — Interaction to Next Paint (remplace FID depuis 2024)
+
+**Ce que ça mesure** : le **délai de réaction** quand l'utilisateur clique/tape sur votre site.
+
+| Score | Statut |
+|---|---|
+| < 200ms | 🟢 Bon |
+| 200ms - 500ms | 🟡 À améliorer |
+| > 500ms | 🔴 Mauvais |
+
+## Comment mesurer vos Core Web Vitals
+
+### Méthode 1 : PageSpeed Insights (gratuit, le plus utilisé)
+
+Sur **[pagespeed.web.dev](https://pagespeed.web.dev/)** :
+1. Entrez votre URL
+2. Onglet **Mobile** (le plus important pour le SEO)
+3. Regardez la section « Core Web Vitals »
+
+### Méthode 2 : Google Search Console
+
+Dans votre Search Console : **Expérience > Signaux web essentiels**. Vous voyez l'état réel de vos pages **basé sur les données de vrais utilisateurs**.
+
+### Méthode 3 : Lighthouse (Chrome DevTools)
+
+F12 sur Chrome → onglet **Lighthouse** → Generate report. Vous obtenez aussi la note Performance globale (sur 100).
+
+## Corriger le LCP (l'image principale est trop lente)
+
+Le LCP est le plus facile à améliorer. Causes typiques :
+
+### Cause 1 : Image hero non optimisée
+
+❌ Image PNG de 2 Mo en haut de page = LCP catastrophique.
+
+**Solution :**
+- Convertir en **WebP ou AVIF** (compression -50 à -70%)
+- Adapter la taille au format d'affichage (pas une image 4K pour un écran 1080p)
+- Utiliser `loading="eager"` sur l'image hero (et `loading="lazy"` sur les autres)
+
+### Cause 2 : Hébergement lent
+
+Un hébergement mutualisé bas de gamme peut ajouter 1-2 secondes au TTFB. **Vercel, Cloudflare ou OVH SSD** sont 5-10x plus rapides.
+
+### Cause 3 : CDN absent
+
+Si votre serveur est en France et votre visiteur en Chine, les ressources mettent du temps. Un **CDN** (Content Delivery Network) distribue vos fichiers dans le monde entier.
+
+## Corriger le CLS (les éléments sautent au chargement)
+
+Le CLS pénalise visuellement et est souvent dû à des erreurs simples :
+
+### Cause 1 : Images sans dimensions
+
+❌ `<img src="hero.jpg">` sans `width` et `height` → la page « grandit » au chargement.
+
+**Solution :** Toujours indiquer `width` et `height` (ou `aspect-ratio` en CSS).
+
+### Cause 2 : Pubs et iframes qui chargent en cours
+
+❌ La pub apparaît 2 secondes après et pousse le contenu vers le bas.
+
+**Solution :** Réserver l'espace de la pub avec un conteneur fixe (min-height).
+
+### Cause 3 : Polices externes qui s'affichent tard
+
+❌ Texte affiché en Arial pendant 1 seconde, puis remplacé par Inter → décalage.
+
+**Solution :** Précharger les polices (`font-display: swap` + preload) ou utiliser `next/font` (Next.js).
+
+## Corriger l'INP (le site réagit lentement aux clics)
+
+L'INP est la métrique la plus technique mais aussi la plus impactante pour l'expérience utilisateur.
+
+### Cause 1 : Trop de JavaScript
+
+❌ 2 Mo de JavaScript chargé à l'ouverture → tous les clics rament.
+
+**Solution :**
+- **Code splitting** (charger seulement le nécessaire par page)
+- **Lazy loading** des composants non visibles
+- Éviter les frameworks lourds (jQuery, Bootstrap JS) si pas nécessaires
+
+### Cause 2 : Trackers et scripts tiers
+
+❌ Google Tag Manager + Hotjar + Facebook Pixel + Intercom = lent.
+
+**Solution :**
+- Auditer chaque script tiers
+- Charger en `defer` ou `async`
+- Utiliser **Google Tag Manager Server-Side** pour les plus lourds
+
+### Cause 3 : Animations / transitions lourdes
+
+❌ Animation CSS sur 50 éléments qui bouge constamment.
+
+**Solution :** Utiliser **transform** et **opacity** uniquement (GPU-accelerated), pas `top/left/width/height`.
+
+## Le seuil Google : > 75% en zone verte
+
+Google considère qu'un site « passe » les Core Web Vitals quand **75% des sessions utilisateurs** sont en zone verte sur les 3 métriques.
+
+Sous 75%, vous êtes pénalisé dans le ranking.
+
+## Mon approche personnelle
+
+Sur mes sites Next.js, voici ce que j'obtiens **par défaut** sans optimisation manuelle :
+
+- **LCP** : 0,8 à 1,2s ✅
+- **CLS** : 0,01 à 0,05 ✅
+- **INP** : 80 à 150ms ✅
+- **Score Lighthouse mobile** : 92 à 98%
+
+Comment ? Parce que Next.js inclut nativement :
+- Optimisation automatique des images (next/image)
+- Optimisation des polices (next/font)
+- Code splitting automatique
+- Préchargement intelligent des routes
+- Génération statique des pages
+
+→ C'est exactement la différence entre WordPress (lent par défaut) et Next.js (rapide par défaut). Voir [mon comparatif détaillé](/blog/wordpress-vs-nextjs-comparaison).
+
+## Et si votre site est lent aujourd'hui ?
+
+Deux options :
+
+### Option 1 : Optimiser l'existant
+
+Possible si votre site est techniquement OK (WordPress bien fait, Webflow, etc.). On peut gagner 30-60% de performance avec :
+- Compression et optimisation des images
+- Réduction des plugins
+- Amélioration de l'hébergement
+- Lazy loading et code splitting
+
+C'est ce que je propose dans mon service [**optimisation SEO on-page**](/services/optimisation-seo-on-page).
+
+### Option 2 : Refondre
+
+Si votre site est techniquement bloqué (CMS obsolète, structure cassée), une **refonte vers Next.js** est plus efficace que des bricolages. Voir [**refonte de site web**](/services/refonte-site-web).
+
+**Vous voulez savoir où en est votre site ?** [Brief offert de 30 min](/contact) — j'audite vos Core Web Vitals gratuitement et je vous dis honnêtement la meilleure approche.

@@ -1,0 +1,143 @@
+---
+title: "Refonte de Site sans Perdre votre Référencement : Le Plan en 8 Étapes"
+description: "Comment refondre votre site web sans saboter votre SEO. Plan complet de migration, redirections 301 et checklist anti-désastre."
+date: "2025-02-19"
+category: "Refonte"
+readTime: "9 min"
+author: "Veaseo"
+---
+
+Refaire son site sans perdre son référencement : c'est le **cauchemar n°1** des entreprises qui rankent déjà sur Google. Et c'est aussi ce que **70% des prestataires ratent**.
+
+Voici le plan exact que je suis pour refondre un site **sans perdre une seule position Google** — souvent même en l'améliorant.
+
+## Le piège : ce qui se passe quand une refonte est mal faite
+
+Imaginez. Vous étiez en page 1 sur « plombier Vannes ». Vous lancez votre nouvelle vitrine, tout fier. Et 2 mois plus tard :
+
+- Google Search Console : -80% de trafic organique
+- Vos pages les mieux classées sont en page 5
+- Les appels ont chuté
+- Et personne ne sait pourquoi
+
+**La cause** : URLs changées, redirections oubliées, structure cassée, balises perdues. Un travail propre de migration SEO aurait évité ça.
+
+## Plan en 8 étapes pour une refonte SEO-safe
+
+### Étape 1 : Audit SEO préalable (semaine 1)
+
+Avant de toucher quoi que ce soit, **photographiez l'existant** :
+
+- **Crawl complet** du site actuel (Screaming Frog)
+- **Liste de toutes les URLs** (chaque page, chaque article, chaque PDF)
+- **Positions Google Search Console** sur les 12 derniers mois
+- **Backlinks reçus** (qui pointe vers quelles pages ?)
+- **Pages performantes** = trafic organique + conversions
+
+Vous saurez ainsi quelles pages **doivent absolument survivre** à la refonte.
+
+### Étape 2 : Mapping des URLs (semaine 1-2)
+
+Maintenant, créez un **tableau Excel** avec :
+
+| URL actuelle | URL nouvelle | Action |
+|---|---|---|
+| /services/plomberie/ | /services/plomberie-vannes | **301 Redirect** |
+| /tarifs/ | /devis | **301 Redirect** |
+| /blog/article-1/ | /blog/article-1/ | **Conservé identique** |
+| /vieille-page-inutile/ | — | **404 ou 410** |
+
+Chaque URL doit avoir un destin clair : conservée, redirigée, ou supprimée volontairement.
+
+### Étape 3 : Conservation des URLs stratégiques
+
+**Règle d'or** : si une URL ranke bien sur Google, **gardez-la identique**.
+
+Pas la peine de réinventer la roue pour faire « joli ». Une URL `/blog/seo-local-guide` qui ranke top 3 sur « SEO local guide », on n'y touche **surtout pas**.
+
+### Étape 4 : Préparation des redirections 301
+
+Pour chaque URL qui change, préparez la **redirection 301** correspondante. Concrètement :
+
+- Sur Vercel/Next.js : configurez dans `next.config.js` ou via les `redirects()`
+- Sur Apache : `.htaccess` avec `RewriteRule`
+- Sur Nginx : directive `rewrite`
+
+⚠️ **Pas de redirections 302** (temporaires). Toujours **301** (permanentes) pour le SEO.
+
+### Étape 5 : Reproduction du contenu stratégique
+
+Sur les pages que vous gardez :
+- **Conservez le H1** (ou améliorez-le, mais pas le supprimer)
+- **Conservez la structure H2/H3**
+- **Conservez le contenu textuel principal** (vous pouvez l'enrichir, pas l'amputer)
+- **Conservez les balises title et meta description** (ou améliorez-les)
+
+Vous pouvez tout refaire visuellement, mais **gardez la substance SEO**.
+
+### Étape 6 : Schema.org enrichi (et non perdu)
+
+Si votre site actuel a déjà du Schema (LocalBusiness, Article, FAQ), **conservez-le et améliorez-le**.
+
+Une refonte bien faite **renforce** le Schema, jamais le supprime.
+
+### Étape 7 : Mise en ligne en mode chirurgical
+
+Le D-Day, l'idéal est de basculer **la nuit ou le week-end** :
+
+1. Déployer le nouveau site sur l'URL principale
+2. Vérifier que **toutes les redirections 301 fonctionnent**
+3. Tester 10-20 URLs critiques manuellement
+4. Soumettre le nouveau **sitemap.xml** à Google Search Console
+5. Demander la **réindexation** des pages prioritaires
+
+### Étape 8 : Surveillance post-lancement (4-8 semaines)
+
+C'est la phase critique. Surveillez tous les jours :
+
+- **Couverture Google Search Console** : pas d'erreurs 404 inattendues
+- **Positions** sur vos 20-30 mots-clés principaux
+- **Trafic organique** Analytics
+- **Vitesse de page** (vous devriez gagner)
+
+Si une position décroche, intervenez immédiatement.
+
+## Les 5 erreurs qui ruinent une refonte
+
+### 1. Pas de plan de redirections
+Vous changez d'URL → ancienne URL → 404 → page perdue → ranking perdu.
+
+### 2. Suppression de pages sans réflexion
+« Cette vieille page ne sert plus » → en fait, elle drive 30% du trafic SEO. Drame.
+
+### 3. Refonte = nouveau CMS sans accompagnement
+Migration de WordPress vers Next.js (ou inverse) sans préparation SEO = catastrophe.
+
+### 4. Robots.txt oublié
+Ligne `Disallow: /` laissée en place après lancement = **site entier bloqué pour Google**.
+
+### 5. Pas de Search Console mise à jour
+Sitemap pas resoumis, propriété mal configurée → vous voyagez à l'aveugle.
+
+## Le pire qui peut arriver (et qui arrive trop souvent)
+
+J'ai vu plusieurs entreprises perdre **40 à 80% de leur trafic** suite à une refonte mal faite. Et c'est dur à récupérer : il faut souvent 6 à 12 mois pour remonter, voire ne jamais récupérer le niveau d'avant.
+
+→ La refonte SEO-safe **n'est pas un bonus**, c'est une **obligation**.
+
+## Comment je gère ça personnellement
+
+Dans mon service de [**refonte de site web**](/services/refonte-site-web), je traite la migration SEO comme une étape **séparée et systématique** :
+
+- Audit complet préalable (semaine 1)
+- Plan de redirections exhaustif (semaine 2)
+- Développement en parallèle de l'ancien site (semaines 2-4)
+- Bascule chirurgicale + monitoring 30 jours
+
+**Résultat habituel** : aucune perte de trafic, souvent un gain de 20-40% grâce à la vitesse et au SEO technique enrichi.
+
+## Vous envisagez une refonte ?
+
+Si votre site est lent, vieillissant, ou ne convertit plus, mais que vous avez peur de **perdre votre référencement Google**, je peux vous accompagner.
+
+[Brief offert de 30 minutes en visio](/contact) — on regarde votre site existant et on évalue ensemble la faisabilité d'une refonte SEO-safe.

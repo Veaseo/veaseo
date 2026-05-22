@@ -1,0 +1,161 @@
+---
+title: "LCP, CLS, INP : Les 3 Métriques Google qui Plombent ou Boostent votre SEO"
+description: "Comprendre les 3 indicateurs de performance Google. Méthodes de mesure, seuils, et impact réel sur votre référencement."
+date: "2024-11-26"
+category: "Performance"
+readTime: "8 min"
+author: "Veaseo"
+---
+
+LCP, CLS, INP. Ces trois acronymes obscurs sont devenus, depuis 2024, **les juges techniques de votre référencement Google**. Mal scorer sur l'un d'eux peut **détruire vos positions** — même si votre contenu est excellent.
+
+Voici l'explication claire de chaque métrique, leurs seuils précis, et **comment Google les utilise concrètement** pour vous classer.
+
+## Le contexte : les Core Web Vitals au cœur du ranking
+
+Depuis 2021, Google intègre les **Core Web Vitals (CWV)** comme facteur de ranking officiel. C'est l'une des rares confirmations directes de Google sur ses critères.
+
+En 2024, **INP a remplacé FID** (First Input Delay), et c'est devenu encore plus sévère.
+
+Le seuil critique : **75% des sessions doivent être en zone verte** sur les 3 métriques pour que votre site soit considéré comme « rapide ».
+
+## 1. LCP — Largest Contentful Paint
+
+### Définition simple
+
+Le LCP mesure le temps que met le **plus gros élément visible** de votre page à s'afficher complètement. Souvent une image, parfois un bloc de texte.
+
+### Pourquoi Google s'en préoccupe
+
+L'utilisateur juge la rapidité d'un site dans ses **2-3 premières secondes**. Si le contenu principal n'est pas visible avant, il abandonne.
+
+### Les seuils 2024-2025
+
+| LCP | Statut Google | Conséquence SEO |
+|---|---|---|
+| < 2,5s | 🟢 **Bon** | Aucune pénalité |
+| 2,5s - 4s | 🟡 **À améliorer** | Léger handicap |
+| > 4s | 🔴 **Mauvais** | Pénalité réelle |
+
+### Causes typiques d'un mauvais LCP
+
+- 📸 Image hero **non compressée** (PNG/JPG 2-5 Mo au lieu de WebP 150-300 Ko)
+- 🐌 Hébergement **lent ou saturé** (mutualisé bas de gamme)
+- 🌍 Pas de **CDN** pour distribuer les ressources
+- 📦 Trop de **scripts bloquants** qui retardent le rendu
+
+### Comment l'améliorer
+
+1. Convertir toutes les images en **WebP** (gain immédiat -60% de poids)
+2. Utiliser le **preload** sur l'image hero
+3. Activer un **CDN** (Cloudflare, Vercel Edge)
+4. Migrer vers un hébergement performant
+
+## 2. CLS — Cumulative Layout Shift
+
+### Définition simple
+
+Le CLS mesure les **décalages visuels imprévus** pendant le chargement. Vous cliquez sur un lien… qui se déplace au dernier moment ? CLS catastrophique.
+
+### Pourquoi Google s'en préoccupe
+
+Un CLS élevé crée une **frustration utilisateur majeure** : clics ratés, contenu illisible, expérience cassée. Google déteste ça.
+
+### Les seuils 2024-2025
+
+| CLS | Statut Google |
+|---|---|
+| < 0,1 | 🟢 **Bon** |
+| 0,1 - 0,25 | 🟡 **À améliorer** |
+| > 0,25 | 🔴 **Mauvais** |
+
+À noter : le CLS est un score **sans unité**. 0,1 = très bon, 0,5 = catastrophique.
+
+### Causes typiques d'un mauvais CLS
+
+- 📷 **Images sans dimensions** déclarées (`width` et `height` manquants)
+- 📰 **Bandeaux publicitaires** qui apparaissent et poussent le contenu
+- 🔤 **Polices web** qui s'affichent avec du retard (FOUT/FOIT)
+- 🎬 **Iframes** (vidéos, formulaires) chargées tardivement
+
+### Comment l'améliorer
+
+1. **Toujours déclarer width/height** sur toutes les images
+2. **Réserver l'espace** des pubs et iframes avec un placeholder
+3. Utiliser **`font-display: swap`** + preload des polices
+4. Précharger les iframes prévisibles
+
+## 3. INP — Interaction to Next Paint (la nouveauté 2024)
+
+### Définition simple
+
+L'INP mesure le **délai de réaction** après une action utilisateur (clic, tap, frappe clavier). Combien de millisecondes entre votre clic et la réponse visuelle ?
+
+### Pourquoi Google s'en préoccupe
+
+INP remplace FID (First Input Delay) en 2024. Il est **plus sévère et plus juste** : il mesure toutes les interactions, pas juste la première.
+
+Une mauvaise INP = un site qui « rame » subjectivement, même s'il s'affiche vite.
+
+### Les seuils 2024-2025
+
+| INP | Statut Google |
+|---|---|
+| < 200ms | 🟢 **Bon** |
+| 200ms - 500ms | 🟡 **À améliorer** |
+| > 500ms | 🔴 **Mauvais** |
+
+### Causes typiques d'un mauvais INP
+
+- 🧱 **JavaScript lourd** chargé en bloc (frameworks, plugins)
+- 📊 **Trackers tiers** (GTM, Hotjar, Intercom, etc.)
+- 🎨 **Animations CSS coûteuses** (top/left/width au lieu de transform)
+- 🐢 **Code non optimisé** (boucles, calculs en JS lourds)
+
+### Comment l'améliorer
+
+1. **Code splitting** : charger seulement le JS nécessaire par page
+2. **Lazy loading** des composants non visibles
+3. **Auditer les scripts tiers** et supprimer les inutiles
+4. Privilégier **transform/opacity** dans les animations CSS
+5. **Web Workers** pour les calculs lourds (avancé)
+
+## Comment Google utilise ces métriques
+
+Google a déclaré officiellement :
+- Les CWV sont un **facteur de ranking parmi d'autres** (pas le seul)
+- Leur impact est **plus fort sur mobile** que sur desktop
+- Sur des **mots-clés concurrentiels**, ils peuvent faire la différence
+- En cas d'égalité entre 2 sites, **les CWV départagent**
+
+→ Concrètement : **vous ne gagnez pas la 1ère place uniquement avec des bons CWV**, mais vous ne l'obtiendrez **jamais** avec des mauvais CWV.
+
+## Quelle priorité d'action ?
+
+Si vous devez choisir :
+
+1. **LCP en priorité** — le plus visible pour l'utilisateur, le plus simple à corriger
+2. **CLS ensuite** — corrections simples (dimensions images)
+3. **INP en finition** — plus technique, mais payant à long terme
+
+## Le rôle décisif du framework
+
+Le secret le moins partagé : **votre stack technique compte plus que vos optimisations manuelles**.
+
+Sur **WordPress** : il faut bricoler, ajouter des plugins de cache, optimiser à la main → résultats variables.
+
+Sur **Next.js** : performance native, sans configuration. C'est pour ça que les sites pros migrent (voir [mon comparatif](/blog/wordpress-vs-nextjs-comparaison)).
+
+## Mon engagement chiffré
+
+Tous mes sites livrés atteignent :
+- **LCP** < 1,5s
+- **CLS** < 0,05
+- **INP** < 200ms
+- **Score Lighthouse mobile** > 95%
+
+Pas par magie : juste parce que j'utilise les bonnes technos (Next.js + Vercel) et que je traite la performance comme une exigence dès le début, pas comme un patch en fin de projet.
+
+C'est l'approche que je propose dans mes services de [**création de site internet**](/services/creation-site-web), [**refonte de site**](/services/refonte-site-web) et [**optimisation SEO on-page**](/services/optimisation-seo-on-page).
+
+**Vous voulez savoir où en est votre site sur ces 3 métriques ?** [Audit offert en 30 minutes](/contact) — je vous montre vos scores réels et je vous donne le plan d'action.

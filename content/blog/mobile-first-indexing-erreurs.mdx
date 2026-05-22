@@ -1,0 +1,161 @@
+---
+title: "Mobile-First Indexing : 7 Erreurs qui Vous Coûtent vos Positions Google"
+description: "Depuis 2023, Google indexe en priorité la version mobile de votre site. Voici les 7 erreurs critiques qui plombent votre SEO sans que vous le sachiez."
+date: "2024-10-30"
+category: "Performance"
+readTime: "9 min"
+author: "Veaseo"
+---
+
+Depuis 2023, **Google indexe en priorité la version mobile** de votre site. C'est ce qu'on appelle le **mobile-first indexing**. Concrètement : si votre site est mauvais sur mobile, votre SEO est mauvais. Point.
+
+Et la plupart des entreprises locales font les mêmes 7 erreurs critiques. Voici comment les identifier — et les corriger.
+
+## Le contexte : pourquoi Google a tout changé en mobile-first
+
+Quelques chiffres pour situer :
+- **63% du trafic web mondial** vient du mobile en 2024
+- **84% des recherches locales** sur Google se font depuis un smartphone
+- **70% des décisions d'achat** locales débutent par une recherche mobile
+
+Conclusion logique de Google : « Mon algorithme doit juger les sites comme un mobinaute les voit. »
+
+→ Désormais, **c'est votre version mobile** que Google analyse, scrape, et juge. Pas votre version desktop.
+
+## Erreur n°1 : Site responsive mais lent sur mobile
+
+C'est l'erreur la plus fréquente. Votre site est techniquement « responsive » (s'adapte à la taille d'écran), mais reste **lent comme la mort** sur smartphone.
+
+**Symptômes :**
+- Score PageSpeed mobile < 60%
+- LCP > 3 secondes
+- Visiteurs qui partent avant le chargement
+
+**Causes typiques :**
+- Images non optimisées pour mobile (image desktop chargée sur mobile)
+- Trop de scripts JavaScript pour les capacités mobile
+- Hébergement mutualisé bas de gamme
+
+**Correction :**
+- Versions **WebP/AVIF** des images
+- Versions **mobile dédiées** des images (responsive images)
+- **Code splitting** pour ne charger que le nécessaire
+- Hébergement performant (Vercel, Cloudflare, OVH SSD)
+
+## Erreur n°2 : Texte trop petit ou trop serré
+
+Sur mobile, le texte doit être **lisible sans zoomer**. Trop souvent, je vois des sites où il faut pincer-zoomer pour lire les paragraphes.
+
+**Bonnes pratiques mobile :**
+- Taille de police corps de texte : **16-18px minimum**
+- Hauteur de ligne (line-height) : **1.5 minimum**
+- Espacement entre paragraphes généreux
+
+Google détecte automatiquement le « texte illisible » et pénalise.
+
+## Erreur n°3 : Boutons et liens trop petits/proches
+
+Sur tactile, un bouton de 24×24 pixels est **impossible à cliquer** correctement.
+
+**Bonnes pratiques tactiles :**
+- **Taille minimale** d'un bouton/lien : 48×48 pixels (recommandation Google)
+- **Espacement minimum** entre éléments cliquables : 8px
+- **Cibles tactiles claires** (ne pas mettre 5 liens collés)
+
+## Erreur n°4 : Popups intrusifs
+
+Google **sanctionne explicitement** les popups intrusifs sur mobile :
+- Popup qui couvre tout l'écran dès l'arrivée → pénalité
+- Popup difficile à fermer → pénalité
+- Newsletter forcée 1 seconde après l'arrivée → pénalité
+
+**Ce qui est OK :**
+- Bannière RGPD raisonnable (obligation légale)
+- Popup d'âge légal (alcool, etc.)
+- Popup déclenchée par action utilisateur (clic, scroll 70%)
+
+## Erreur n°5 : Contenu masqué en mobile
+
+L'erreur classique : sur desktop, votre site affiche tout. Sur mobile, vous masquez 50% du contenu pour « simplifier ».
+
+**⚠️ Problème énorme** : Google ne voit que la version mobile désormais. Tout contenu masqué en mobile = **contenu invisible pour Google** = SEO en chute libre.
+
+**Bonnes pratiques :**
+- Le contenu **doit être présent** en mobile, même condensé
+- Utiliser des **accordéons / tabs** plutôt que `display: none`
+- Garder tous les H2/H3 importants visibles
+
+## Erreur n°6 : Formulaires impossibles à remplir en mobile
+
+Un formulaire mal conçu en mobile = **0 conversion**. Erreurs fréquentes :
+
+- Champs trop petits (40×30 pixels)
+- Pas de `autocomplete` ni `inputmode` adaptés
+- Clavier numérique pas activé pour les champs téléphone
+- Soumission qui plante en cas de mauvais réseau
+
+**Bonnes pratiques :**
+- Champs **48px minimum de hauteur**
+- `inputmode="tel"` sur téléphone, `inputmode="email"` sur email
+- `autocomplete` correctement balisé (`given-name`, `family-name`, etc.)
+- Sauvegarde locale avant soumission (anti-perte de données)
+
+## Erreur n°7 : Pas de version AMP / Schema mobile
+
+Bon, **AMP est mort** en 2023 (Google a réduit son importance). Mais d'autres signaux mobile comptent toujours :
+
+- **Schema.org bien configuré** : balises FAQPage, BreadcrumbList, Article
+- **Viewport correctement déclaré** : `<meta name="viewport" content="width=device-width, initial-scale=1">`
+- **Pas de redirection mobile/desktop séparée** (problème pour Google)
+
+## Comment auditer votre site en mobile-first
+
+### Test 1 : Google Mobile-Friendly Test
+
+Allez sur **[search.google.com/test/mobile-friendly](https://search.google.com/test/mobile-friendly/)** et entrez votre URL. Vous obtenez un audit complet.
+
+### Test 2 : PageSpeed Insights mobile
+
+Sur **[pagespeed.web.dev](https://pagespeed.web.dev/)** : onglet **Mobile** uniquement. Vérifiez :
+- Score Performance (> 90%)
+- Core Web Vitals (zone verte)
+- Recommandations spécifiques
+
+### Test 3 : Google Search Console
+
+Section **Expérience > Utilisation mobile**. Vous voyez **les vrais utilisateurs** et leur expérience réelle.
+
+### Test 4 : Test manuel sur votre vrai smartphone
+
+Le plus important : ouvrez votre site **sur votre vrai téléphone** :
+- Le contenu se charge-t-il en moins de 3 secondes ?
+- Les boutons sont-ils faciles à cliquer ?
+- Le texte est-il lisible sans zoomer ?
+- Les formulaires fonctionnent-ils bien ?
+
+## Cas concrets : les CMS face au mobile-first
+
+| Plateforme | Mobile-friendly par défaut ? |
+|---|---|
+| **WordPress (template standard)** | 🟡 Variable selon thème, souvent à optimiser |
+| **WordPress + Elementor / Divi** | 🔴 Souvent lourd, perf médiocres |
+| **Wix / Squarespace** | 🟡 OK visuellement, performance limitée |
+| **Webflow** | 🟢 Plutôt bien si bien fait |
+| **Next.js** | 🟢🟢 Excellent par défaut |
+
+C'est l'une des raisons pour lesquelles j'utilise [**exclusivement Next.js**](/blog/wordpress-vs-nextjs-comparaison) : la performance mobile native est imbattable.
+
+## Mon approche personnelle : mobile-first ET mobile-second
+
+Je conçois tous mes sites en **mobile-first** : je commence par la version mobile, puis j'ajoute la version desktop. Pas l'inverse.
+
+Résultat :
+- Score PageSpeed mobile > 95% systématique
+- LCP < 1,2s sur mobile
+- Formulaires fluides
+- Boutons d'action accessibles au pouce
+- Performances **strictement identiques** entre desktop et mobile
+
+C'est inclus dans mes services de [**création de site internet**](/services/creation-site-web) et de [**refonte de site web**](/services/refonte-site-web).
+
+**Votre site est-il vraiment mobile-first ?** [Brief offert de 30 minutes](/contact) — je teste votre site en direct sur mobile et je vous donne le diagnostic.
