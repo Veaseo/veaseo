@@ -1,179 +1,125 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  Globe, Search, MousePointerClick, Zap, ArrowRight,
-  CheckCircle2, TrendingUp, BarChart3,
+  Globe, Search, Map, Building2, RefreshCw, PenTool, MapPin,
+  ArrowRight, CheckCircle2,
 } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import SectionHeader from "@/components/ui/SectionHeader";
 import CTABanner from "@/components/ui/CTABanner";
+import { services, business } from "@/lib/business";
+
+const iconMap = {
+  Globe, Search, Map, Building2, RefreshCw, PenTool, MapPin,
+} as const;
 
 export const metadata: Metadata = {
-  title: "Services – Création site web, SEO, CRO pour entreprises locales",
+  title: "Services – Création de site, SEO local & Google Maps dans le Morbihan",
   description:
-    "Découvrez tous les services Veaseo : création de site web, référencement SEO, optimisation des conversions et refonte. Résultats garantis.",
-  alternates: { canonical: "https://veaseo.fr/services" },
+    "Tous les services Veaseo : création de site internet, SEO local, Google Maps, refonte, rédaction SEO. Spécialiste des entreprises locales dans le Morbihan.",
+  alternates: { canonical: `${business.url}/services` },
 };
 
-const services = [
-  {
-    icon: Globe,
-    title: "Création de site web",
-    slug: "creation-site-web",
-    tagline: "Votre vitrine digitale, optimisée pour convertir",
-    description:
-      "Un site web professionnel, rapide et pensé SEO dès la conception. Design sur-mesure, mobile-first, et intégration des meilleures pratiques de conversion.",
-    features: [
-      "Design 100% personnalisé",
-      "Mobile-first & responsive",
-      "Score PageSpeed 90+",
-      "Optimisation SEO on-page",
-      "Formulaires de contact & CTA",
-      "Hébergement & maintenance",
-    ],
-    price: "À partir de 1 500€",
-    delay: 300,
-  },
-  {
-    icon: Search,
-    title: "Référencement SEO",
-    slug: "referencement-seo",
-    tagline: "1ère page Google pour vos mots-clés stratégiques",
-    description:
-      "Stratégie SEO complète : audit technique, optimisation on-page, netlinking et contenu. Je vous positionne sur les recherches de vos clients locaux.",
-    features: [
-      "Audit SEO complet",
-      "Recherche de mots-clés",
-      "Optimisation technique",
-      "Création de contenu SEO",
-      "Netlinking qualitatif",
-      "Reporting mensuel",
-    ],
-    price: "À partir de 400€/mois",
-    delay: 400,
-  },
-  {
-    icon: MousePointerClick,
-    title: "Optimisation CRO",
-    slug: "optimisation-conversion",
-    tagline: "Plus de clients sans plus de trafic",
-    description:
-      "Analysez le comportement de vos visiteurs et optimisez chaque élément de votre site pour maximiser les conversions : formulaires, CTA, tunnel d'achat.",
-    features: [
-      "Analyse heatmaps & sessions",
-      "Tests A/B",
-      "Optimisation des formulaires",
-      "Amélioration des CTA",
-      "Réduction du taux de rebond",
-      "Augmentation du panier moyen",
-    ],
-    price: "À partir de 600€",
-    delay: 500,
-  },
-  {
-    icon: Zap,
-    title: "Refonte de site web",
-    slug: "refonte-site-web",
-    tagline: "Modernisez votre site, boostez vos résultats",
-    description:
-      "Votre site web est lent, vieillissant ou ne convertit plus ? Je l'analyse, le redesigne et l'optimise pour en faire une machine à générer des clients.",
-    features: [
-      "Audit de l'existant",
-      "Migration sans perte SEO",
-      "Nouveau design moderne",
-      "Amélioration performances",
-      "Restructuration du contenu",
-      "Formation & accompagnement",
-    ],
-    price: "À partir de 1 200€",
-    delay: 600,
-  },
+const guarantees = [
+  "Livraison rapide (30 jours pour un site)",
+  "Score PageSpeed mobile > 95%",
+  "Site 100% à vous à la livraison",
+  "Spécialiste exclusif SEO local Morbihan",
 ];
 
 export default function ServicesPage() {
   return (
     <>
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Accueil", item: business.url },
+              { "@type": "ListItem", position: 2, name: "Services", item: `${business.url}/services` },
+            ],
+          }),
+        }}
+      />
+
       {/* Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-orange-500/8 rounded-full blur-3xl pointer-events-none" />
         <div className="container-custom relative z-10 text-center">
           <AnimatedSection>
-            <span className="badge mb-6">Mes services</span>
+            <span className="badge mb-6">
+              <MapPin className="w-3.5 h-3.5" /> Morbihan & Bretagne sud
+            </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Tout ce qu&apos;il faut pour{" "}
-              <span className="text-gradient">dominer Google</span>
+              <span className="text-gradient">dominer Google localement</span>
             </h1>
             <p className="text-dark-300 text-lg max-w-2xl mx-auto mb-8">
-              Des services complémentaires conçus pour un seul objectif : transformer votre présence digitale en moteur de croissance pour votre entreprise.
+              Une gamme complète de services SEO local, conçue pour les entreprises du Morbihan qui veulent attirer plus de clients via Google.
             </p>
             <Link href="/contact" className="btn-primary px-8 py-4 text-base">
               Demander un devis gratuit <ArrowRight className="w-5 h-5" />
             </Link>
+
+            {/* Guarantees */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto mt-12">
+              {guarantees.map((g) => (
+                <div key={g} className="flex items-center gap-2 text-dark-200 text-xs md:text-sm justify-start text-left">
+                  <CheckCircle2 className="w-4 h-4 text-orange-400 shrink-0" />
+                  {g}
+                </div>
+              ))}
+            </div>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* Services list */}
+      {/* Services grid */}
       <section className="section-padding">
-        <div className="container-custom space-y-8">
-          {services.map((service, i) => (
-            <AnimatedSection key={service.slug} delay={i * 100}>
-              <div className="card-glow group">
-                <div className="flex flex-col lg:flex-row gap-8">
-                  <div className="lg:w-2/3">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center shrink-0">
-                        <service.icon className="w-6 h-6 text-orange-400" />
-                      </div>
-                      <div>
-                        <h2 className="text-xl font-bold text-white">{service.title}</h2>
-                        <p className="text-orange-400 text-sm">{service.tagline}</p>
-                      </div>
+        <div className="container-custom">
+          <SectionHeader
+            badge="Mes 7 services"
+            title="Une expertise"
+            titleHighlight="100% SEO local"
+            description="Chaque service est pensé pour répondre à un besoin précis des entreprises locales. Pris seuls ou combinés, ils forment l'écosystème complet de votre visibilité."
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, i) => {
+              const Icon = iconMap[service.icon as keyof typeof iconMap] ?? Globe;
+              return (
+                <AnimatedSection key={service.slug} delay={i * 80}>
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="card-glow group h-full flex flex-col"
+                  >
+                    <div className="w-12 h-12 rounded-2xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center mb-5 shrink-0 group-hover:scale-110 transition-transform">
+                      <Icon className="w-6 h-6 text-orange-400" />
                     </div>
-                    <p className="text-dark-300 mb-6 leading-relaxed">{service.description}</p>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      {service.features.map((f) => (
-                        <div key={f} className="flex items-center gap-2 text-sm text-dark-200">
-                          <CheckCircle2 className="w-4 h-4 text-orange-400 shrink-0" />
-                          {f}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="lg:w-1/3 lg:border-l lg:border-white/5 lg:pl-8 flex flex-col justify-between">
-                    <div>
-                      <div className="text-dark-400 text-sm mb-1">Investissement</div>
-                      <div className="text-2xl font-bold text-orange-400 mb-4">{service.price}</div>
-                      <div className="space-y-2 mb-6">
-                        {[
-                          { icon: TrendingUp, text: "ROI mesurable" },
-                          { icon: BarChart3, text: "Reporting transparent" },
-                        ].map(({ icon: Icon, text }) => (
-                          <div key={text} className="flex items-center gap-2 text-sm text-dark-300">
-                            <Icon className="w-4 h-4 text-orange-400" />
-                            {text}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <Link
-                      href={`/services/${service.slug}`}
-                      className="btn-primary w-full justify-center text-sm"
-                    >
+                    <h2 className="text-xl font-bold text-white mb-2">
+                      {service.name}
+                    </h2>
+                    <p className="text-dark-300 text-sm leading-relaxed mb-6 flex-1">
+                      {service.description}
+                    </p>
+                    <span className="text-orange-400 text-sm font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                       Découvrir <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
+                    </span>
+                  </Link>
+                </AnimatedSection>
+              );
+            })}
+          </div>
         </div>
       </section>
 
       <CTABanner
         title="Vous ne savez pas par où commencer ?"
-        description="Commençons par un audit gratuit pour identifier les actions prioritaires pour votre business."
-        primaryLabel="Audit SEO gratuit"
+        description="Brief offert de 30 min en visio. Je vous aide à identifier le service le plus stratégique pour votre business — sans engagement."
+        primaryLabel="Brief gratuit"
         secondaryLabel="En savoir plus sur moi"
         secondaryHref="/a-propos"
       />

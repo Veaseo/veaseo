@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import StickyCallButton from "@/components/StickyCallButton";
+import { business, services, cities } from "@/lib/business";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,46 +13,46 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://veaseo.fr"),
+  metadataBase: new URL(business.url),
   title: {
-    default: "Veaseo – Webdesigner spécialisé SEO pour entreprises locales",
-    template: "%s | Veaseo",
+    default: `${business.name} – Création de site internet & SEO local dans le Morbihan`,
+    template: `%s | ${business.name}`,
   },
-  description:
-    "Transformez votre visibilité Google en clients grâce à un site web pensé pour convertir. Veaseo : webdesigner spécialisé en référencement naturel pour les entreprises locales.",
+  description: business.description,
   keywords: [
-    "webdesigner",
-    "SEO",
-    "référencement naturel",
-    "création site web",
-    "entreprises locales",
-    "agence web",
-    "site vitrine",
-    "Google",
+    "création site internet Morbihan",
+    "webdesigner Ploërmel",
+    "SEO local Morbihan",
+    "création site web Vannes",
+    "création site web Lorient",
+    "référencement Google local",
+    "agence web Morbihan",
+    "site vitrine entreprise locale",
+    "Bretagne sud",
   ],
-  authors: [{ name: "Veaseo" }],
-  creator: "Veaseo",
+  authors: [{ name: business.owner }],
+  creator: business.name,
+  publisher: business.name,
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://veaseo.fr",
-    siteName: "Veaseo",
-    title: "Veaseo – Webdesigner spécialisé SEO pour entreprises locales",
-    description:
-      "Transformez votre visibilité Google en clients grâce à un site web pensé pour convertir.",
+    url: business.url,
+    siteName: business.name,
+    title: `${business.name} – Création de site internet & SEO local dans le Morbihan`,
+    description: business.description,
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Veaseo – Sites web qui convertissent",
+        alt: `${business.name} – Sites web qui convertissent`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Veaseo – Webdesigner spécialisé SEO",
-    description: "Sites web qui transforment votre visibilité Google en clients.",
+    title: `${business.name} – Création de site internet & SEO local`,
+    description: business.description,
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -64,9 +66,76 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "google-site-verification-token",
+};
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": `${business.url}/#localbusiness`,
+  name: business.name,
+  legalName: business.legalName,
+  description: business.description,
+  url: business.url,
+  logo: `${business.url}/icon.svg`,
+  image: `${business.url}/og-image.jpg`,
+  priceRange: "€€€",
+  telephone: business.phoneE164,
+  email: business.email,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: business.address.locality,
+    postalCode: business.address.postalCode,
+    addressRegion: business.address.region,
+    addressCountry: business.address.country,
   },
+  openingHoursSpecification: business.openingHoursSpec,
+  areaServed: cities.map((c) => ({
+    "@type": "City",
+    name: c.name,
+  })),
+  serviceArea: {
+    "@type": "AdministrativeArea",
+    name: business.address.department,
+  },
+  sameAs: [business.social.linkedin, business.social.instagram],
+  founder: {
+    "@type": "Person",
+    name: business.owner,
+    jobTitle: business.jobTitle,
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: `Services ${business.name}`,
+    itemListElement: services.map((s) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: s.name,
+        url: `${business.url}/services/${s.slug}`,
+      },
+    })),
+  },
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${business.url}/#website`,
+  url: business.url,
+  name: business.name,
+  description: business.description,
+  publisher: {
+    "@id": `${business.url}/#localbusiness`,
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${business.url}/blog?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
+  inLanguage: "fr-FR",
 };
 
 export default function RootLayout({
@@ -79,71 +148,18 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": ["LocalBusiness", "ProfessionalService"],
-              name: "Veaseo",
-              description:
-                "Webdesigner spécialisé dans la création de sites web optimisés SEO pour les entreprises locales.",
-              url: "https://veaseo.fr",
-              logo: "https://veaseo.fr/logo.svg",
-              image: "https://veaseo.fr/og-image.jpg",
-              priceRange: "€€",
-              telephone: "+33 6 00 00 00 00",
-              email: "contact@veaseo.fr",
-              address: {
-                "@type": "PostalAddress",
-                addressCountry: "FR",
-              },
-              sameAs: [
-                "https://www.linkedin.com/company/veaseo",
-                "https://www.instagram.com/veaseo",
-              ],
-              founder: {
-                "@type": "Person",
-                name: "Veaseo",
-                jobTitle: "Webdesigner & Consultant SEO",
-              },
-              serviceArea: {
-                "@type": "Country",
-                name: "France",
-              },
-              hasOfferCatalog: {
-                "@type": "OfferCatalog",
-                name: "Services Veaseo",
-                itemListElement: [
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Création de site web",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Référencement naturel (SEO)",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Optimisation des conversions (CRO)",
-                    },
-                  },
-                ],
-              },
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
       <body className="bg-dark text-dark-50 antialiased font-sans">
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <StickyCallButton />
       </body>
     </html>
   );

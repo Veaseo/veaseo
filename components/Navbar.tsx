@@ -3,19 +3,18 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, Rocket } from "lucide-react";
+import { Menu, X, ChevronDown, Rocket, Phone } from "lucide-react";
+import { services, business, telLink } from "@/lib/business";
 
-const services = [
-  { href: "/services/creation-site-web", label: "Création de site web" },
-  { href: "/services/referencement-seo", label: "Référencement SEO" },
-  { href: "/services/optimisation-conversion", label: "Optimisation CRO" },
-  { href: "/services/refonte-site-web", label: "Refonte de site web" },
-];
-
-const navLinks = [
+const navLinks: Array<{
+  href: string;
+  label: string;
+  hasMegaMenu?: boolean;
+}> = [
   { href: "/", label: "Accueil" },
-  { href: "/services", label: "Services", children: services },
+  { href: "/services", label: "Services", hasMegaMenu: true },
   { href: "/realisations", label: "Réalisations" },
+  { href: "/zones-intervention", label: "Zones" },
   { href: "/a-propos", label: "À propos" },
   { href: "/blog", label: "Blog" },
 ];
@@ -57,7 +56,7 @@ export default function Navbar() {
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) =>
-            link.children ? (
+            link.hasMegaMenu ? (
               <div key={link.href} className="relative group">
                 <button
                   className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
@@ -72,29 +71,43 @@ export default function Navbar() {
                     strokeWidth={2}
                   />
                 </button>
-                <div
-                  className="absolute top-full left-0 mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0"
-                >
-                  <div className="bg-dark-800 border border-white/10 rounded-2xl p-2 shadow-card">
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        className={`flex items-center px-4 py-2.5 rounded-xl text-sm transition-colors duration-150 ${
-                          pathname === child.href
-                            ? "text-orange-400 bg-orange-500/10"
-                            : "text-dark-200 hover:text-white hover:bg-white/5"
-                        }`}
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                    <div className="mt-1 pt-1 border-t border-white/5">
+                {/* Mega menu */}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[640px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0">
+                  <div className="bg-dark-800 border border-white/10 rounded-2xl p-4 shadow-card">
+                    <div className="grid grid-cols-2 gap-2">
+                      {services.map((service) => {
+                        const href = `/services/${service.slug}`;
+                        const isActive = pathname === href;
+                        return (
+                          <Link
+                            key={service.slug}
+                            href={href}
+                            className={`block px-4 py-3 rounded-xl transition-colors duration-150 ${
+                              isActive
+                                ? "bg-orange-500/10"
+                                : "hover:bg-white/5"
+                            }`}
+                          >
+                            <div
+                              className={`font-semibold text-sm mb-0.5 ${
+                                isActive ? "text-orange-400" : "text-white"
+                              }`}
+                            >
+                              {service.name}
+                            </div>
+                            <div className="text-dark-400 text-xs leading-snug">
+                              {service.description}
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                    <div className="mt-3 pt-3 border-t border-white/5">
                       <Link
                         href="/services"
-                        className="flex items-center px-4 py-2.5 rounded-xl text-sm text-orange-400 hover:bg-orange-500/10 transition-colors duration-150 font-medium"
+                        className="flex items-center justify-center gap-1 px-4 py-2.5 rounded-xl text-sm text-orange-400 hover:bg-orange-500/10 transition-colors duration-150 font-semibold"
                       >
-                        Tous les services →
+                        Voir tous les services →
                       </Link>
                     </div>
                   </div>
@@ -118,11 +131,16 @@ export default function Navbar() {
 
         {/* CTA */}
         <div className="hidden lg:flex items-center gap-3">
-          <Link href="/contact" className="btn-secondary text-sm py-2 px-5">
-            Me contacter
-          </Link>
+          <a
+            href={telLink}
+            className="hidden xl:flex items-center gap-2 text-dark-200 hover:text-orange-400 text-sm font-semibold transition-colors"
+            aria-label={`Appeler ${business.name}`}
+          >
+            <Phone className="w-4 h-4" />
+            {business.phone}
+          </a>
           <Link href="/contact" className="btn-primary text-sm py-2 px-5">
-            Audit gratuit
+            Devis gratuit
           </Link>
         </div>
 
@@ -159,15 +177,15 @@ export default function Navbar() {
               >
                 {link.label}
               </Link>
-              {link.children && (
+              {link.hasMegaMenu && (
                 <div className="ml-4 mt-1 space-y-1">
-                  {link.children.map((child) => (
+                  {services.map((service) => (
                     <Link
-                      key={child.href}
-                      href={child.href}
+                      key={service.slug}
+                      href={`/services/${service.slug}`}
                       className="block px-4 py-2 rounded-xl text-xs text-dark-300 hover:text-white hover:bg-white/5 transition-colors"
                     >
-                      {child.label}
+                      {service.name}
                     </Link>
                   ))}
                 </div>
@@ -175,11 +193,14 @@ export default function Navbar() {
             </div>
           ))}
           <div className="pt-4 flex flex-col gap-2">
-            <Link href="/contact" className="btn-secondary text-sm justify-center">
-              Me contacter
-            </Link>
+            <a
+              href={telLink}
+              className="btn-secondary text-sm justify-center gap-2"
+            >
+              <Phone className="w-4 h-4" /> {business.phone}
+            </a>
             <Link href="/contact" className="btn-primary text-sm justify-center">
-              Audit gratuit
+              Devis gratuit
             </Link>
           </div>
         </div>
