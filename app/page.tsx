@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  ArrowRight, CheckCircle2, Star, TrendingUp,
-  Globe, Search, Shield, Users,
-  ChevronDown, Phone, Mail,
-  MapPin, Map, Building2, RefreshCw, PenTool,
-  Code2, Rocket, ClipboardList, Gauge, Heart, Sparkles,
+  ArrowRight, CheckCircle2, Star, Globe, Search,
+  ChevronDown, Phone, Mail, MapPin, Map, Building2, RefreshCw,
+  PenTool, Code2, Rocket, ClipboardList, Gauge, Heart, Sparkles,
+  Users, Eye,
 } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -17,116 +16,164 @@ const iconMap = {
 } as const;
 
 export const metadata: Metadata = {
-  title: "Veaseo – Création de site internet & SEO local dans le Morbihan",
+  title: "Veaseo — Création site web Morbihan & SEO local | Ploërmel",
   description:
-    "Webdesigner SEO local dans le Morbihan : sites ultra-rapides, livraison en 30 jours, 100% à vous. Pour artisans, commerçants et PME à Vannes, Lorient, Ploërmel.",
+    "Webdesigner spécialisé SEO local à Ploërmel. Je crée des sites Next.js sur mesure pour les PME du Morbihan. Livré en 30 jours, pensé pour Google.",
   alternates: { canonical: business.url },
 };
 
 const heroStats = [
-  { value: "30 j", label: "de livraison" },
-  { value: "> 95%", label: "PageSpeed mobile" },
-  { value: "100%", label: "à vous, à vie" },
+  { value: "30 j", label: "livraison garantie" },
+  { value: "> 95%", label: "score PageSpeed" },
+  { value: "100%", label: "sur mesure" },
 ];
 
-const why = [
+// SECTION 2 — Problèmes qui parlent au dirigeant
+const problems = [
+  {
+    icon: Eye,
+    title: "Votre site a plus de 3 ans",
+    desc: "Et il ne génère aucun appel entrant. Vos prospects vont voir ailleurs.",
+  },
+  {
+    icon: Users,
+    title: "Vous dépendez du bouche-à-oreille",
+    desc: "C'est fragile. Le jour où il s'arrête, vos rendez-vous aussi.",
+  },
+  {
+    icon: Search,
+    title: "Vos concurrents arrivent avant vous",
+    desc: "Sur Google. Chaque jour. Et ça coûte des clients que vous ne voyez même pas passer.",
+  },
+];
+
+// SECTION 3 — Différenciation : pourquoi Veaseo
+const differentiators = [
   {
     icon: Code2,
-    title: "Next.js, pas WordPress",
-    desc: "Stack moderne (Next.js, React, TypeScript) utilisée par Netflix, Notion ou TikTok. Pas de page builder, pas de templates recyclés. Du code propre qui se charge en moins d'une seconde.",
+    title: "Structure pensée pour Google",
+    desc: "Dès le premier pixel. Next.js, Schema.org, mots-clés locaux, vitesse. Pas du SEO ajouté après coup — du SEO intégré dans l'ADN du site.",
   },
   {
-    icon: Gauge,
-    title: "PageSpeed mobile > 95%",
-    desc: "Score Lighthouse Google supérieur à 95% garanti à la livraison. Le seuil que la plupart des agences ne franchissent jamais. Et pourtant : 53% des visiteurs quittent un site trop lent.",
-  },
-  {
-    icon: MapPin,
-    title: "Spécialiste SEO local",
-    desc: "Pas un généraliste qui fait de tout. Je travaille exclusivement le référencement local pour les entreprises du Morbihan. C'est ma spécialité, pas une option dans mon catalogue.",
+    icon: Sparkles,
+    title: "Next.js sur mesure, pas de template à 59€",
+    desc: "Pas de WordPress lent. Pas de page builder qui rame. Du code propre, écrit pour votre activité. La même techno que Netflix ou Notion.",
   },
   {
     icon: Heart,
-    title: "100% à vous, à vie",
-    desc: "À la livraison, le code, l'hébergement et le nom de domaine sont à votre nom. Aucune dépendance, aucun abonnement piégé. Vous pouvez changer de prestataire quand vous voulez.",
+    title: "Un seul interlocuteur, de A à Z",
+    desc: "Pas de chef de projet, pas d'agence en sous-traitance. Vous parlez à la personne qui code, qui pense le SEO et qui livre votre site.",
   },
   {
-    icon: Shield,
-    title: "Pas de fausses promesses",
-    desc: "Personne ne peut garantir une position Google. Je garantis un travail technique irréprochable qui maximise vos chances. La transparence d'abord, les résultats ensuite.",
-  },
-  {
-    icon: ClipboardList,
-    title: "Process humain rigoureux",
-    desc: "5 questionnaires détaillés + atelier visio avant la moindre ligne de code. Aucune approximation. C'est cette rigueur qui fait la différence avec un site joli mais inefficace.",
+    icon: Rocket,
+    title: "Livré en 30 jours, garanti",
+    desc: "Engagement contractuel, pas une estimation marketing. Process structuré, méthode rodée, pas de réunion inutile. Vous voyez votre site en ligne en 30 jours.",
   },
 ];
 
+// SECTION 4 — Process en 5 étapes
 const process = [
-  { step: "01", icon: ClipboardList, title: "5 questionnaires détaillés", desc: "Comprendre votre activité, vos services, vos zones, vos concurrents et vos clients idéaux." },
-  { step: "02", icon: Users, title: "Atelier stratégique en visio", desc: "Validation de l'arborescence, des mots-clés locaux à cibler et des CTA prioritaires. 1h de stratégie." },
-  { step: "03", icon: Code2, title: "Conception & développement", desc: "Maquettes validées, puis développement sur-mesure en Next.js. Aucun template, aucun outsourcing." },
-  { step: "04", icon: Search, title: "Optimisation SEO complète", desc: "Schema.org LocalBusiness, sitemap, Google Search Console. Tout est prêt pour Google avant la mise en ligne." },
-  { step: "05", icon: Rocket, title: "Livraison en 30 jours", desc: "Site indexé, formation incluse, transfert complet à votre nom. Vous êtes propriétaire à 100%." },
+  {
+    step: "01",
+    icon: ClipboardList,
+    title: "5 modules de questions",
+    desc: "Vous répondez chez vous, à votre rythme. Aucune jargon. Je capte tout ce qu'il faut pour construire un site qui vous ressemble.",
+  },
+  {
+    step: "02",
+    icon: Users,
+    title: "Visio stratégique",
+    desc: "On valide ensemble l'angle, l'arborescence, les mots-clés cibles et les CTAs. 1h ciblée, pas de blabla.",
+  },
+  {
+    step: "03",
+    icon: Code2,
+    title: "Développement sur mesure",
+    desc: "Je code votre site en Next.js. Sans template, sans raccourci. Architecture SEO et performance intégrées dès le départ.",
+  },
+  {
+    step: "04",
+    icon: Search,
+    title: "Optimisation SEO complète",
+    desc: "Schema.org, sitemap, Google Search Console, GA4, Google Business optimisée. Tout est prêt pour Google avant la mise en ligne.",
+  },
+  {
+    step: "05",
+    icon: Rocket,
+    title: "Livraison en 30 jours",
+    desc: "Site indexé, formation incluse, transfert complet à votre nom. Vous êtes propriétaire à 100%. Et je reste joignable.",
+  },
 ];
 
+// SECTION 7 — Témoignages réels (Réunion)
 const testimonials = [
   {
-    name: "Marie L.",
-    role: "Cabinet d'ostéopathie, Saint-Denis",
+    name: "Cliente — Professionnelle libérale",
+    role: "Île de la Réunion",
     content:
-      "Bastien a refait mon site et travaillé mon référencement local. Aujourd'hui mon agenda est plein 3 semaines à l'avance. Le process avec les questionnaires détaillés en amont a fait toute la différence.",
+      "Si vous cherchez quelqu'un qui sait viser juste — et viser haut — vous êtes au bon endroit. Une écoute rare, une implication totale.",
     rating: 5,
-    result: "Agenda plein 3 sem.",
+    result: "Site sur mesure",
   },
   {
-    name: "Thomas R.",
-    role: "Garage indépendant, Saint-Pierre",
+    name: "Gérant — Salle de sport",
+    role: "Île de la Réunion",
     content:
-      "Je suis passé de la 3e page Google à la 1ère sur 'garage [ville]' en 4 mois. Les appels qualifiés ont explosé. Et le site est ultra rapide, mes clients me le disent.",
+      "Ma salle de sport est passée devant Keep Cool sur Google. Une PME locale devant une franchise nationale — je n'aurais pas cru ça possible avant de travailler avec Bastien.",
     rating: 5,
-    result: "1ère page Google",
+    result: "#1 Google local",
   },
   {
-    name: "Sophie M.",
-    role: "Salon de coiffure, Saint-Paul",
+    name: "Cliente — Thérapeute énergéticienne",
+    role: "Île de la Réunion",
     content:
-      "Bastien a pris le temps de comprendre mon métier. Le site est magnifique, les clientes prennent rendez-vous directement en ligne. Surtout : il m'a tout expliqué, je gère mon site moi-même maintenant.",
+      "Bastien a su capter l'essence de mon univers dès nos premiers échanges. Créatif, efficace, toujours force de proposition — sa persévérance fait la différence.",
     rating: 5,
-    result: "Réservations en ligne",
+    result: "Site à son image",
   },
 ];
 
+// SECTION 8 — FAQ stratégique
 const faqs = [
   {
-    question: "En combien de temps mon site sera-t-il en ligne ?",
+    question: "Combien coûte un site web avec Veaseo ?",
     answer:
-      "Tous mes sites sont livrés en 30 jours maximum, à partir de la signature du devis et du retour de vos 5 questionnaires d'onboarding. C'est un engagement contractuel, pas une estimation.",
+      "Je n'affiche pas mes tarifs publiquement. Chaque projet a ses spécificités (nombre de pages, zones cibles, fonctionnalités) et je veux vous proposer un prix juste, pas un tarif générique. 30 minutes d'échange offert, puis devis détaillé sous 48h. Sans engagement.",
   },
   {
-    question: "Pouvez-vous garantir que je serai premier sur Google ?",
+    question: "En quoi mon site sera-t-il mieux référencé ?",
     answer:
-      "Non, et personne ne peut le faire honnêtement : c'est Google qui décide. Ce que je garantis, c'est un site avec des fondations SEO techniques irréprochables (vitesse, structure, contenu local). Pour des résultats durables, je propose ensuite un accompagnement SEO mensuel.",
+      "Architecture Next.js + Schema.org LocalBusiness + sitemap + Google Analytics intégrés dès la conception. Pas du SEO ajouté après coup, mais du SEO pensé en amont. Score PageSpeed > 95% garanti. C'est ce qui change tout sur Google.",
   },
   {
-    question: "Le site m'appartient-il vraiment à la fin ?",
+    question: "30 jours c'est réaliste ?",
     answer:
-      "Oui, 100%. À la livraison, je transfère à votre nom : le code source (GitHub), l'hébergement (Vercel) et le nom de domaine. Vous pouvez continuer avec moi pour le SEO ou partir avec un autre prestataire, le site reste entièrement le vôtre. C'est mon engagement éthique.",
+      "Oui, grâce à un process structuré : questionnaire en amont (5 modules), visio stratégique d'1h, développement intensif, optimisation SEO. Pas de réunions inutiles, pas d'allers-retours sans fin. C'est un engagement contractuel, pas une estimation.",
   },
   {
-    question: "Pourquoi pas un site WordPress comme tout le monde ?",
+    question: "Dois-je gérer le site après livraison ?",
     answer:
-      "WordPress, c'est 60% des sites du web, mais c'est techniquement lourd et lent. J'utilise Next.js : la techno utilisée par Netflix, Notion ou TikTok. Résultat : un site 5 à 10 fois plus rapide, mieux référencé sur Google, et beaucoup plus sécurisé. Pas de plugins à mettre à jour tous les mois.",
+      "Non. Site livré clé en main, indexé, formé. Vous pouvez tout laisser tourner sans rien faire. Un accompagnement SEO mensuel est disponible si vous voulez aller plus loin (rédaction d'articles, suivi positions, optimisations continues).",
+  },
+  {
+    question: "Freelance vs agence ?",
+    answer:
+      "Un seul interlocuteur du devis à la livraison. Vous parlez à la personne qui code, qui pense le SEO et qui livre votre site. Réactivité, implication directe, sans marges agence. Et un travail sur-mesure, pas un produit standardisé.",
+  },
+  {
+    question: "Mon vieux site est-il vraiment un problème ?",
+    answer:
+      "Site vieux ne veut pas dire site qui ne fonctionne pas. Mais les critères Google 2025 (vitesse, mobile, données structurées) ont radicalement changé. Vos concurrents avec un site moderne en profitent. Un site obsolète vous coûte des clients chaque mois, silencieusement.",
+  },
+  {
+    question: "Garantissez-vous des résultats Google ?",
+    answer:
+      "Pas de position garantie — personne ne peut le faire honnêtement, c'est Google qui décide. Ce que je garantis : une base technique optimale, une stratégie ciblée, et une méthode éprouvée qui maximise vos chances. La transparence d'abord.",
   },
   {
     question: "Travaillez-vous uniquement dans le Morbihan ?",
     answer:
-      "Je suis basé à Ploërmel et je travaille en priorité avec les entreprises de Vannes, Lorient, Auray, Pontivy et toute la Bretagne sud. Mais je peux intervenir partout en France à distance — tout le process se fait en visio et par mail.",
-  },
-  {
-    question: "Combien coûte un site Veaseo ?",
-    answer:
-      "Chaque projet est unique : votre métier, vos zones, votre concurrence. Je préfère vous proposer un devis sur-mesure plutôt qu'un tarif générique. Comptez 30 minutes d'échange offert, puis vous recevez un devis détaillé sous 48h, sans engagement.",
+      "Je suis basé à Ploërmel et je travaille en priorité avec les entreprises de Vannes, Lorient, Auray, Pontivy et toute la Bretagne sud. Mais je peux intervenir partout en France à distance — tout le process se fait en visio.",
   },
 ];
 
@@ -149,7 +196,7 @@ export default function HomePage() {
         }}
       />
 
-      {/* ─── HERO ─── */}
+      {/* ─── SECTION 1 — HERO ─── */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-dark">
         <div className="absolute inset-0 bg-grid opacity-40 pointer-events-none" />
         <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -162,36 +209,27 @@ export default function HomePage() {
                 <span className="badge mb-6">
                   <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
                   <MapPin className="w-3.5 h-3.5" />
-                  Morbihan & Bretagne sud
+                  Webdesigner SEO Local — Morbihan
                 </span>
               </AnimatedSection>
 
               <AnimatedSection delay={100}>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-                  Création de site internet{" "}
-                  <span className="text-gradient">dans le Morbihan</span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                  Votre site web, c&apos;est beau.{" "}
+                  <span className="text-gradient">Mais est-ce que Google le voit&nbsp;?</span>
                 </h1>
               </AnimatedSection>
 
-              <AnimatedSection delay={150}>
-                <p className="text-orange-400 font-semibold text-base md:text-lg mb-6 tracking-wide uppercase">
-                  Création de site · SEO local · Google Maps · Performance
-                </p>
-              </AnimatedSection>
-
               <AnimatedSection delay={200}>
-                <p className="text-lg md:text-xl text-dark-200 leading-relaxed mb-2 max-w-xl font-medium">
-                  Un site web qui travaille pour vous 24h/24, 7j/7.
-                </p>
-                <p className="text-base text-dark-300 leading-relaxed mb-8 max-w-xl">
-                  Je crée des sites sur-mesure pour les entreprises locales du Morbihan : artisans, commerçants, PME. Sites ultra-rapides, optimisés SEO local, livrés en 30 jours — et 100% à vous.
+                <p className="text-lg md:text-xl text-dark-200 leading-relaxed mb-8 max-w-xl">
+                  Je crée des sites sur mesure pour les PME du Morbihan — pensés pour Google, livrés en 30 jours.
                 </p>
               </AnimatedSection>
 
               <AnimatedSection delay={300}>
                 <div className="flex flex-col sm:flex-row gap-3 mb-6">
                   <Link href="/contact" className="btn-primary text-base px-7 py-4">
-                    Devis gratuit <ArrowRight className="w-5 h-5" />
+                    Parlons de votre visibilité <ArrowRight className="w-5 h-5" />
                   </Link>
                   <a href={telLink} className="btn-secondary text-base px-7 py-4">
                     <Phone className="w-5 h-5" /> {business.phone}
@@ -243,7 +281,7 @@ export default function HomePage() {
                     <MapPin className="w-4 h-4 text-orange-400" />
                     <div>
                       <div className="text-xs text-dark-400">SEO local</div>
-                      <div className="text-sm font-bold text-white">Top 3</div>
+                      <div className="text-sm font-bold text-white">Morbihan</div>
                     </div>
                   </div>
                 </div>
@@ -258,58 +296,55 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── TRUST BAR (Google reviews + horaires) ─── */}
-      <section className="py-10 border-y border-white/5 bg-dark-800/50">
+      {/* ─── SECTION 2 — PROBLÈME ─── */}
+      <section className="section-padding bg-dark-800/30 border-y border-white/5">
         <div className="container-custom">
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 text-center">
-            <div className="flex items-center gap-3">
-              <div className="flex gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-orange-400 text-orange-400" />
-                ))}
-              </div>
-              <div className="text-left">
-                <div className="text-white font-bold text-sm">5,0 / 5</div>
-                <div className="text-dark-400 text-xs">Avis Google</div>
-              </div>
-            </div>
-            <div className="hidden md:block w-px h-8 bg-white/10" />
-            <div className="flex items-center gap-2 text-sm text-dark-300">
-              <Sparkles className="w-4 h-4 text-orange-400" />
-              <span><strong className="text-white">Devis</strong> sous 48h</span>
-            </div>
-            <div className="hidden md:block w-px h-8 bg-white/10" />
-            <div className="flex items-center gap-2 text-sm text-dark-300">
-              <Shield className="w-4 h-4 text-orange-400" />
-              <span><strong className="text-white">Aucun</strong> engagement</span>
-            </div>
-            <div className="hidden md:block w-px h-8 bg-white/10" />
-            <div className="flex items-center gap-2 text-sm text-dark-300">
-              <Heart className="w-4 h-4 text-orange-400" />
-              <span><strong className="text-white">Site 100%</strong> à vous</span>
-            </div>
+          <SectionHeader
+            badge="Le constat"
+            title="Votre concurrent est devant vous sur Google."
+            titleHighlight="Chaque jour, ça coûte."
+            description="Trois situations que je rencontre 9 fois sur 10 chez les PME locales du Morbihan."
+          />
+          <div className="grid md:grid-cols-3 gap-6">
+            {problems.map((p, i) => (
+              <AnimatedSection key={p.title} delay={i * 100}>
+                <div className="card h-full">
+                  <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                    <p.icon className="w-6 h-6 text-orange-400" />
+                  </div>
+                  <h3 className="text-white font-bold text-lg mb-2">{p.title}</h3>
+                  <p className="text-dark-300 text-sm leading-relaxed">{p.desc}</p>
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
+          <AnimatedSection className="mt-12 max-w-3xl mx-auto text-center">
+            <p className="text-dark-200 text-lg leading-relaxed">
+              Il existe une solution. Elle s&apos;appelle{" "}
+              <strong className="text-orange-400">l&apos;architecture SEO-first</strong>. Et c&apos;est exactement ce que je construis.
+            </p>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* ─── "PAS QUE DU BEAU" — DIFFÉRENCIATION TECH ─── */}
+      {/* ─── SECTION 3 — DIFFÉRENCIATION ─── */}
       <section className="section-padding">
         <div className="container-custom">
           <SectionHeader
-            badge="Différenciation"
-            title="Pas que du beau,"
-            titleHighlight="du SEO local qui ranke"
-            description="La plupart des agences vous vendent un site qui « rend bien ». Moi, je vous livre un site qui apporte des clients. Voici comment."
+            badge="Pourquoi Veaseo"
+            title="Je ne vends pas du beau."
+            titleHighlight="Je vends de la visibilité."
+            description="La différence, vos concurrents la voient déjà. Voici ce qui change concrètement."
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {why.map((item, i) => (
-              <AnimatedSection key={item.title} delay={i * 80}>
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {differentiators.map((d, i) => (
+              <AnimatedSection key={d.title} delay={i * 80}>
                 <div className="card h-full">
                   <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
-                    <item.icon className="w-6 h-6 text-orange-400" />
+                    <d.icon className="w-6 h-6 text-orange-400" />
                   </div>
-                  <h3 className="text-white font-bold text-lg mb-2">{item.title}</h3>
-                  <p className="text-dark-300 text-sm leading-relaxed">{item.desc}</p>
+                  <h3 className="text-white font-bold text-lg mb-2">{d.title}</h3>
+                  <p className="text-dark-300 text-sm leading-relaxed">{d.desc}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -317,14 +352,49 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── SERVICES ─── */}
+      {/* ─── SECTION 4 — PROCESS ─── */}
       <section className="section-padding bg-dark-800/30 border-y border-white/5">
         <div className="container-custom">
           <SectionHeader
-            badge="Mes 7 services"
-            title="Tout ce qu'il faut pour"
+            badge="Comment ça se passe"
+            title="Un processus en 5 étapes"
+            titleHighlight="pour un site qui travaille pour vous"
+            description="Vous n'avez rien à apprendre. Je prends la complexité, vous gardez le contrôle."
+          />
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+            {process.map((step, i) => (
+              <AnimatedSection key={step.step} delay={i * 100}>
+                <div className="card h-full relative">
+                  <div className="absolute top-4 right-4 text-4xl font-bold text-orange-500/15">
+                    {step.step}
+                  </div>
+                  <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                    <step.icon className="w-6 h-6 text-orange-400" />
+                  </div>
+                  <h3 className="text-white font-bold mb-2 pr-10">{step.title}</h3>
+                  <p className="text-dark-300 text-sm leading-relaxed">{step.desc}</p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+
+          <AnimatedSection className="text-center mt-10">
+            <Link href="/contact" className="btn-primary px-8 py-4">
+              Démarrer ma méthode <ArrowRight className="w-5 h-5" />
+            </Link>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ─── SECTION 5 — SERVICES ─── */}
+      <section className="section-padding">
+        <div className="container-custom">
+          <SectionHeader
+            badge="Ce que je crée"
+            title="Tout ce qu&apos;il faut pour"
             titleHighlight="dominer Google localement"
-            description="Du site web à la rédaction d'articles, en passant par Google Maps : une gamme complète pensée pour les entreprises locales."
+            description="Du site web à la rédaction d&apos;articles, en passant par Google Maps. Une gamme complète pensée pour les PME locales."
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -355,49 +425,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── PROCESS — 5 ÉTAPES ─── */}
-      <section className="section-padding">
-        <div className="container-custom">
-          <SectionHeader
-            badge="Ma méthode"
-            title="5 étapes vers"
-            titleHighlight="votre nouveau site"
-            description="Pas de surprise, pas de jargon, pas d'à-peu-près. Une méthode structurée, transparente, livrée en 30 jours chrono."
-          />
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-            {process.map((step, i) => (
-              <AnimatedSection key={step.step} delay={i * 100}>
-                <div className="card h-full relative">
-                  <div className="absolute top-4 right-4 text-4xl font-bold text-orange-500/15">
-                    {step.step}
-                  </div>
-                  <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
-                    <step.icon className="w-6 h-6 text-orange-400" />
-                  </div>
-                  <h3 className="text-white font-bold mb-2 pr-10">{step.title}</h3>
-                  <p className="text-dark-300 text-sm leading-relaxed">{step.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          <AnimatedSection className="text-center mt-10">
-            <Link href="/contact" className="btn-primary px-8 py-4">
-              Démarrer ma méthode <ArrowRight className="w-5 h-5" />
-            </Link>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* ─── TESTIMONIALS ─── */}
+      {/* ─── SECTION 6 — TÉMOIGNAGES ─── */}
       <section className="section-padding bg-dark-800/30 border-y border-white/5">
         <div className="container-custom">
           <SectionHeader
             badge="Premiers retours"
-            title="Ce que disent"
-            titleHighlight="mes clients"
-            description="Des résultats concrets pour des entreprises locales comme la vôtre."
+            title="Des PME locales qui rankent"
+            titleHighlight="devant les géants"
+            description="Témoignages de clients accompagnés à l&apos;Île de la Réunion avant mon installation dans le Morbihan."
           />
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -413,7 +448,7 @@ export default function HomePage() {
                     &ldquo;{t.content}&rdquo;
                   </p>
                   <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-3 py-1 mb-4 w-fit">
-                    <TrendingUp className="w-3.5 h-3.5 text-orange-400" />
+                    <Sparkles className="w-3.5 h-3.5 text-orange-400" />
                     <span className="text-orange-400 text-xs font-semibold">{t.result}</span>
                   </div>
                   <div>
@@ -433,14 +468,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── ZONES D'INTERVENTION ─── */}
+      {/* ─── SECTION 7 — ZONES D'INTERVENTION ─── */}
       <section className="section-padding">
         <div className="container-custom max-w-5xl">
           <SectionHeader
             badge="Zones d&apos;intervention"
             title="J&apos;interviens dans"
             titleHighlight="tout le Morbihan"
-            description="Basé à Ploërmel, j'accompagne les entreprises locales partout en Bretagne sud."
+            description="Basé à Ploërmel, j&apos;accompagne les PME locales partout en Bretagne sud."
           />
           <AnimatedSection>
             <div className="flex flex-wrap gap-3 justify-center">
@@ -464,14 +499,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── FAQ ─── */}
+      {/* ─── SECTION 8 — FAQ ─── */}
       <section className="section-padding bg-dark-800/30 border-y border-white/5">
         <div className="container-custom">
           <SectionHeader
-            badge="FAQ"
-            title="Questions"
-            titleHighlight="fréquentes"
-            description="Tout ce que vous devez savoir avant de commencer votre projet."
+            badge="Questions fréquentes"
+            title="Tout ce que vous voulez savoir"
+            titleHighlight="avant de vous lancer"
+            description="Les vraies questions que les patrons me posent. Et les réponses honnêtes que je leur donne."
           />
 
           <div className="max-w-3xl mx-auto space-y-4">
@@ -493,15 +528,15 @@ export default function HomePage() {
           </div>
 
           <AnimatedSection className="text-center mt-10">
-            <p className="text-dark-300 text-sm mb-4">Vous avez d&apos;autres questions ?</p>
+            <p className="text-dark-300 text-sm mb-4">Une autre question ?</p>
             <Link href="/contact" className="btn-primary px-8">
-              Me contacter directement <ArrowRight className="w-4 h-4" />
+              Écrivez-moi directement <ArrowRight className="w-4 h-4" />
             </Link>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* ─── FINAL CTA (style ondev: contact direct multi-canal) ─── */}
+      {/* ─── SECTION 9 — CTA FINAL ─── */}
       <section className="section-padding">
         <div className="container-custom max-w-5xl">
           <AnimatedSection>
@@ -513,15 +548,18 @@ export default function HomePage() {
                   C&apos;est parti
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
-                  Prêt à <span className="text-gradient">dominer Google</span><br className="hidden md:block" /> localement ?
+                  Votre prochain client{" "}
+                  <span className="text-gradient">vous cherche sur Google.</span>
                 </h2>
                 <p className="text-dark-200 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-                  30 minutes de brief offert en visio pour comprendre votre projet, vos objectifs et vous proposer un devis précis sous 48h. Aucun engagement.
+                  Ne le laissez pas trouver votre concurrent à la place.
+                  <br />
+                  30 minutes en visio, devis sous 48h, aucun engagement.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
                   <Link href="/contact" className="btn-primary px-10 py-4 text-base">
-                    Démarrer mon projet <ArrowRight className="w-5 h-5" />
+                    Parlons de votre projet <ArrowRight className="w-5 h-5" />
                   </Link>
                   <a href={telLink} className="btn-secondary px-10 py-4 text-base">
                     <Phone className="w-5 h-5" /> Appeler
@@ -533,13 +571,13 @@ export default function HomePage() {
 
                 <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-dark-300">
                   <span className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-orange-400" /> Brief offert
+                    <CheckCircle2 className="w-4 h-4 text-orange-400" /> 30 minutes offertes
                   </span>
                   <span className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-orange-400" /> Réponse sous 48h
+                    <CheckCircle2 className="w-4 h-4 text-orange-400" /> Devis sous 48h
                   </span>
                   <span className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-orange-400" /> Aucun engagement
+                    <CheckCircle2 className="w-4 h-4 text-orange-400" /> Un seul interlocuteur
                   </span>
                 </div>
               </div>

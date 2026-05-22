@@ -8,16 +8,16 @@ export const business = {
   name: "Veaseo",
   legalName: "Veaseo",
   owner: "Bastien Bondu",
-  jobTitle: "Webdesigner & Consultant SEO local",
-  tagline: "Architecture SEO · Conversion locale · Performance technique",
+  jobTitle: "Webdesigner SEO local",
+  tagline: "Des sites pensés pour Google, pas pour les concours de beauté.",
   description:
-    "Webdesigner spécialisé SEO local pour les entreprises du Morbihan. Sites ultra-rapides, architecturés pour Google, livraison en 30 jours.",
+    "Webdesigner SEO local à Ploërmel. Je crée des sites Next.js sur mesure pour les PME du Morbihan — pensés pour Google, livrés en 30 jours.",
   url: "https://veaseo.fr",
   email: "contact@veaseo.fr",
   // Format affichage humain
   phone: "06 92 08 36 84",
-  // Format E.164 pour tel: links et Schema.org
-  phoneE164: "+33692083684",
+  // Format E.164 pour tel: links et Schema.org (Réunion : +262)
+  phoneE164: "+262692083684",
   siret: "99299838500015",
   address: {
     locality: "Ploërmel",
