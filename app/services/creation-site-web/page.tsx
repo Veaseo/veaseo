@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  ArrowRight, CheckCircle2, Globe, Zap, Smartphone,
+  ArrowRight, CheckCircle2, Globe, Smartphone,
   Search, Shield, MapPin, ClipboardList, Rocket,
-  Phone, MessageCircle, Calendar, Gauge, Users, Code2,
+  Phone, Gauge, Users, Code2,
 } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -311,7 +311,7 @@ export default function CreationSiteWebPage() {
           </div>
           <AnimatedSection className="mt-12 max-w-3xl mx-auto text-center">
             <p className="text-dark-300 text-lg leading-relaxed">
-              Vos prospects cherchent <strong className="text-white">votre métier + votre ville</strong> sur Google. S'ils ne vous trouvent pas, ils trouvent votre concurrent. Un site bien fait change littéralement votre chiffre d'affaires.
+              Vos prospects cherchent <strong className="text-white">votre métier + votre ville</strong> sur Google. S&apos;ils ne vous trouvent pas, ils trouvent votre concurrent. Un site bien fait change littéralement votre chiffre d&apos;affaires.
             </p>
           </AnimatedSection>
         </div>
@@ -375,14 +375,14 @@ export default function CreationSiteWebPage() {
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             <AnimatedSection>
-              <span className="badge mb-4">À qui ça s'adresse</span>
+              <span className="badge mb-4">À qui ça s&apos;adresse</span>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                 Conçu pour les{" "}
                 <span className="text-gradient">entreprises locales</span>{" "}
                 du Morbihan
               </h2>
               <p className="text-dark-300 text-lg leading-relaxed mb-6">
-                Je ne fais pas de e-commerce, pas de marketplaces, pas de SaaS. Je fais <strong className="text-white">une seule chose, mais je la fais très bien</strong> : des sites vitrines pour les entreprises qui ont besoin d'être trouvées par leurs clients sur Google.
+                Je ne fais pas de e-commerce, pas de marketplaces, pas de SaaS. Je fais <strong className="text-white">une seule chose, mais je la fais très bien</strong> : des sites vitrines pour les entreprises qui ont besoin d&apos;être trouvées par leurs clients sur Google.
               </p>
               <p className="text-dark-300 text-base leading-relaxed">
                 Que vous soyez à Vannes, Lorient, Auray, Pontivy ou ailleurs en Bretagne sud, votre site doit ressembler à votre savoir-faire : <strong className="text-white">propre, rapide, fiable</strong>.
@@ -469,7 +469,7 @@ export default function CreationSiteWebPage() {
                 Chaque projet est unique
               </h3>
               <p className="text-dark-200 text-base md:text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
-                Votre métier, votre zone, votre concurrence : tout est différent. Je préfère prendre 30 minutes pour comprendre votre projet et vous proposer un <strong className="text-white">devis sur-mesure adapté à vos objectifs</strong>, plutôt qu'un tarif générique qui ne vous correspond pas.
+                Votre métier, votre zone, votre concurrence : tout est différent. Je préfère prendre 30 minutes pour comprendre votre projet et vous proposer un <strong className="text-white">devis sur-mesure adapté à vos objectifs</strong>, plutôt qu&apos;un tarif générique qui ne vous correspond pas.
               </p>
               <Link href="/contact" className="btn-primary px-8 py-4 text-base inline-flex">
                 Obtenir mon devis personnalisé <ArrowRight className="w-5 h-5" />
