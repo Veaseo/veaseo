@@ -92,62 +92,53 @@ const targets = [
   "Bâtiment, paysagistes, couvreurs",
 ];
 
-const packages = [
+const included = [
   {
-    name: "Vitrine",
-    price: "2 500€",
-    desc: "Pour les artisans et indépendants du Morbihan",
-    features: [
-      "5 pages sur-mesure",
-      "SEO local optimisé (1 ville cible)",
-      "Formulaire + bouton d'appel direct",
-      "Score PageSpeed > 95%",
-      "Fiche Google Business optimisée",
-      "Livraison en 30 jours",
-      "Site 100% à vous (code + hébergement)",
+    title: "Site web sur-mesure",
+    items: [
+      "Design unique adapté à votre métier",
+      "Pages services illimitées",
+      "Compatible mobile, tablette, ordinateur",
+      "Animations soignées au scroll",
+      "Identité visuelle cohérente",
     ],
-    cta: "Démarrer mon projet",
-    highlight: false,
   },
   {
-    name: "Business",
-    price: "4 500€",
-    desc: "Pour les PME locales qui veulent dominer leur secteur",
-    features: [
-      "10 pages sur-mesure",
-      "SEO local multi-villes (jusqu'à 5)",
-      "Pages services dédiées (1 par activité)",
-      "Blog SEO prêt à publier",
-      "Google Analytics + Search Console",
+    title: "SEO local pro",
+    items: [
+      "Mots-clés locaux ciblés (métier + ville)",
       "Schema.org LocalBusiness avancé",
-      "Livraison en 30 jours",
-      "Formation pour gérer votre site",
+      "Sitemap.xml & robots.txt",
+      "Optimisation Google Business Profile",
+      "Pages dédiées par zone d'intervention",
     ],
-    cta: "Choisir Business",
-    highlight: true,
   },
   {
-    name: "Sur-mesure",
-    price: "Sur devis",
-    desc: "Multi-établissements, projets ambitieux",
-    features: [
-      "Pages illimitées",
-      "SEO local multi-zones",
-      "Système de réservation",
-      "Espace client / intranet léger",
-      "Intégrations spécifiques (CRM, agenda…)",
-      "Reporting SEO mensuel",
-      "Accompagnement premium",
+    title: "Performance & technique",
+    items: [
+      "Score PageSpeed supérieur à 95%",
+      "Certificat SSL & sauvegardes",
+      "Conformité RGPD complète",
+      "Hébergement haute performance",
+      "Suivi Google Analytics + Search Console",
     ],
-    cta: "Demander un devis",
-    highlight: false,
+  },
+  {
+    title: "Accompagnement humain",
+    items: [
+      "5 questionnaires d'onboarding détaillés",
+      "Atelier stratégique en visio",
+      "Livraison en 30 jours garantis",
+      "Formation pour gérer votre site",
+      "Transfert complet à votre nom",
+    ],
   },
 ];
 
 const faqs = [
   {
     q: "Combien coûte la création d'un site internet dans le Morbihan ?",
-    a: "Mes forfaits démarrent à 2 500€ pour un site vitrine professionnel optimisé SEO local, livré en 30 jours. Le prix dépend du nombre de pages, du nombre de villes ciblées et des fonctionnalités spécifiques. Aucun frais caché, devis détaillé sous 48h.",
+    a: "Chaque projet est unique : nombre de pages, villes ciblées, fonctionnalités spécifiques. Je préfère vous proposer un devis sur-mesure plutôt qu'un tarif générique. Comptez 30 minutes d'échange offert pour comprendre vos besoins, puis vous recevez un devis détaillé sous 48h, sans engagement et sans frais cachés.",
   },
   {
     q: "En combien de temps mon site sera-t-il en ligne ?",
@@ -206,17 +197,6 @@ export default function CreationSiteWebPage() {
             },
             description:
               "Création de sites internet professionnels pour entreprises locales dans le Morbihan : artisans, commerçants, PME. Sites ultra-rapides, SEO local, livraison en 30 jours.",
-            offers: {
-              "@type": "Offer",
-              priceCurrency: "EUR",
-              price: "2500",
-              priceSpecification: {
-                "@type": "PriceSpecification",
-                priceCurrency: "EUR",
-                price: "2500",
-                description: "À partir de 2 500€",
-              },
-            },
           }),
         }}
       />
@@ -451,57 +431,53 @@ export default function CreationSiteWebPage() {
         </div>
       </section>
 
-      {/* PRICING */}
+      {/* WHAT'S INCLUDED */}
       <section className="section-padding">
         <div className="container-custom">
           <SectionHeader
-            badge="Tarifs"
-            title="Des forfaits clairs,"
-            titleHighlight="sans surprise"
-            description="Aucun frais caché, aucune mensualité piégée. Vous payez une fois, le site est à vous à vie."
+            badge="Ce qui est inclus"
+            title="Une prestation complète,"
+            titleHighlight="sans options cachées"
+            description="Pas de menu à la carte ni de surprises au moment de la facture. Tout ce dont une entreprise locale a besoin pour être visible et convertir est inclus."
           />
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {packages.map((pkg, i) => (
-              <AnimatedSection key={pkg.name} delay={i * 100}>
-                <div
-                  className={`rounded-3xl p-8 border flex flex-col h-full ${
-                    pkg.highlight
-                      ? "bg-gradient-to-b from-orange-500/20 to-dark-800 border-orange-500/40 relative"
-                      : "bg-dark-800 border-white/5"
-                  }`}
-                >
-                  {pkg.highlight && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-white text-xs font-bold px-4 py-1 rounded-full">
-                      Le plus choisi
-                    </div>
-                  )}
-                  <div className="mb-6">
-                    <h3 className="text-white font-bold text-xl mb-1">{pkg.name}</h3>
-                    <p className="text-dark-400 text-sm mb-4">{pkg.desc}</p>
-                    <div className="text-3xl font-bold text-orange-400">{pkg.price}</div>
-                  </div>
-                  <ul className="space-y-3 mb-8 flex-1">
-                    {pkg.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-dark-200">
-                        <CheckCircle2 className="w-4 h-4 text-orange-400 shrink-0 mt-0.5" />
-                        <span>{f}</span>
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {included.map((block, i) => (
+              <AnimatedSection key={block.title} delay={i * 100}>
+                <div className="card h-full">
+                  <h3 className="text-white font-bold text-xl mb-5 flex items-center gap-2">
+                    <span className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400 text-sm font-bold">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {block.title}
+                  </h3>
+                  <ul className="space-y-3">
+                    {block.items.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-dark-200">
+                        <CheckCircle2 className="w-5 h-5 text-orange-400 shrink-0 mt-0.5" />
+                        <span className="text-sm leading-relaxed">{item}</span>
                       </li>
                     ))}
                   </ul>
-                  <Link
-                    href="/contact"
-                    className={pkg.highlight ? "btn-primary justify-center" : "btn-secondary justify-center"}
-                  >
-                    {pkg.cta} <ArrowRight className="w-4 h-4" />
-                  </Link>
                 </div>
               </AnimatedSection>
             ))}
           </div>
-          <AnimatedSection className="text-center mt-10">
-            <p className="text-dark-400 text-sm">
-              💡 Possibilité de paiement en 2 ou 3 fois sans frais — on en parle au devis.
-            </p>
+
+          <AnimatedSection className="mt-12 max-w-3xl mx-auto">
+            <div className="rounded-3xl p-8 md:p-10 bg-gradient-to-br from-orange-500/15 via-orange-500/5 to-transparent border border-orange-500/20 text-center">
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                Chaque projet est unique
+              </h3>
+              <p className="text-dark-200 text-base md:text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
+                Votre métier, votre zone, votre concurrence : tout est différent. Je préfère prendre 30 minutes pour comprendre votre projet et vous proposer un <strong className="text-white">devis sur-mesure adapté à vos objectifs</strong>, plutôt qu'un tarif générique qui ne vous correspond pas.
+              </p>
+              <Link href="/contact" className="btn-primary px-8 py-4 text-base inline-flex">
+                Obtenir mon devis personnalisé <ArrowRight className="w-5 h-5" />
+              </Link>
+              <p className="text-dark-500 text-xs mt-4">
+                Brief offert · Réponse sous 48h · Aucun engagement
+              </p>
+            </div>
           </AnimatedSection>
         </div>
       </section>
