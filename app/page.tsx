@@ -215,7 +215,7 @@ export default function HomePage() {
 
               <AnimatedSection delay={100}>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                  Votre site web, c&apos;est beau.{" "}
+                  Votre site web est beau.{" "}
                   <span className="text-gradient">Mais est-ce que Google le voit&nbsp;?</span>
                 </h1>
               </AnimatedSection>
