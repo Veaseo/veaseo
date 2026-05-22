@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import {
   ArrowRight, CheckCircle2, MapPin, Globe, Search, Map,
   Building2, RefreshCw, PenTool, Phone, Mail, Clock,
+  Smartphone, Shield, BarChart3, Code2, Layout, Rocket,
+  ClipboardList, Users, Gauge,
 } from "lucide-react";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -16,15 +18,14 @@ import {
   telLink,
   mailtoLink,
 } from "@/lib/business";
+import { getServiceContent } from "@/lib/services-content";
 
-// Icon mapping (Lucide icons are dynamic so we map them manually)
 const iconMap = {
   Globe, Search, Map, Building2, RefreshCw, PenTool, MapPin,
+  Smartphone, Shield, BarChart3, Code2, Layout, Rocket,
+  ClipboardList, Users, Gauge, CheckCircle2, Phone, Mail, Clock,
 } as const;
 
-/**
- * Static generation of all service pages — except creation-site-web which has its own static file.
- */
 export async function generateStaticParams() {
   return services
     .filter((s) => s.slug !== "creation-site-web")
@@ -41,9 +42,7 @@ export async function generateMetadata({
   return {
     title: service.metaTitle,
     description: service.metaDescription,
-    alternates: {
-      canonical: `${business.url}/services/${service.slug}`,
-    },
+    alternates: { canonical: `${business.url}/services/${service.slug}` },
     openGraph: {
       title: service.metaTitle,
       description: service.metaDescription,
@@ -53,62 +52,37 @@ export async function generateMetadata({
   };
 }
 
-const topCities = cities.filter((c) => c.priority === 1).map((c) => c.name);
-
-const defaultBenefits = [
-  "Optimisation SEO local ciblée (mots-clés métier + ville)",
-  "Schema.org LocalBusiness avancé",
-  "Score PageSpeed mobile supérieur à 95%",
-  "Conformité RGPD complète",
-  "Suivi Google Analytics + Search Console",
-  "Site 100% à vous à la livraison",
-];
-
-const defaultProcess = [
-  { step: "01", title: "5 questionnaires détaillés", desc: "Comprendre votre activité, vos zones, vos concurrents et vos clients idéaux." },
-  { step: "02", title: "Atelier stratégique", desc: "Visio de 1h pour valider l'arborescence, les mots-clés locaux et les CTA prioritaires." },
-  { step: "03", title: "Mise en œuvre", desc: "Réalisation sur-mesure par un expert. Aucun template générique, pas d'outsourcing." },
-  { step: "04", title: "Livraison & transfert", desc: "Vous récupérez 100% de votre site. Indexation Google, formation et passage de témoin." },
-];
-
-const defaultFaqs = [
-  {
-    q: "Pour quelles entreprises ce service est-il adapté ?",
-    a: "Ce service s'adresse aux entreprises locales du Morbihan et de Bretagne sud : artisans, commerçants, restaurateurs, professions libérales, PME de services. Si vous avez besoin d'être trouvé sur Google par des clients de votre zone géographique, ce service est fait pour vous.",
-  },
-  {
-    q: "En combien de temps puis-je voir des résultats ?",
-    a: "Les délais varient selon le service : certaines prestations donnent des résultats sous 48h (fiche Google Business), d'autres demandent 2 à 3 mois pour observer des changements significatifs sur Google (SEO local). Je vous donne un calendrier précis dans le devis.",
-  },
-  {
-    q: "Travaillez-vous uniquement dans le Morbihan ?",
-    a: `Basé à ${business.address.locality}, j'interviens en priorité dans le Morbihan (Vannes, Lorient, Auray, Pontivy, Ploërmel...) et en Bretagne sud. Mais je peux travailler à distance partout en France — tout le process se fait en visio et par mail.`,
-  },
-  {
-    q: "Garantissez-vous un résultat sur Google ?",
-    a: "Personne ne peut honnêtement garantir une position sur Google : c'est l'algorithme qui décide. Ce que je garantis, c'est un travail technique irréprochable qui maximise vos chances de bien ranker. La transparence avant tout.",
-  },
-  {
-    q: "Combien coûte ce service ?",
-    a: "Chaque projet est unique : votre métier, vos zones, votre concurrence. Je préfère vous proposer un devis sur-mesure plutôt qu'un tarif générique. Comptez 30 minutes d'échange offert pour comprendre vos besoins, puis vous recevez un devis détaillé sous 48h.",
-  },
-];
+const topCities = cities.filter((c) => c.priority === 1);
 
 export default function ServicePage({ params }: { params: { slug: string } }) {
   const service = getServiceBySlug(params.slug);
+  const content = getServiceContent(params.slug);
 
-  if (!service || service.slug === "creation-site-web") {
+  if (!service || service.slug === "creation-site-web" || !content) {
     notFound();
   }
 
   const Icon = iconMap[service.icon as keyof typeof iconMap] ?? Globe;
-
-  // Related services (everything except current)
   const related = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+
+  // Render bold markdown (**) in problem stats text
+  const renderInlineBold = (text: string) => {
+    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+    return parts.map((part, i) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return (
+          <strong key={i} className="text-white">
+            {part.slice(2, -2)}
+          </strong>
+        );
+      }
+      return part;
+    });
+  };
 
   return (
     <>
-      {/* Service Schema */}
+      {/* SCHEMA: Service */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -125,14 +99,14 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         }}
       />
 
-      {/* FAQ Schema */}
+      {/* SCHEMA: FAQ */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "FAQPage",
-            mainEntity: defaultFaqs.map((f) => ({
+            mainEntity: content.faqs.map((f) => ({
               "@type": "Question",
               name: f.q,
               acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -141,7 +115,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         }}
       />
 
-      {/* BreadcrumbList Schema */}
+      {/* SCHEMA: Breadcrumb */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -185,10 +159,13 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 {service.h1.includes(" dans le ") ? `dans le ${service.h1.split(" dans le ")[1]}` : ""}
               </span>
             </h1>
-            <p className="text-dark-200 text-xl max-w-3xl mb-8 leading-relaxed">
-              {service.description}
+            <p className="text-dark-200 text-xl max-w-3xl mb-4 leading-relaxed font-medium">
+              {content.heroSubtitle}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <p className="text-dark-300 text-lg max-w-3xl mb-8 leading-relaxed">
+              {content.heroDescription}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 mb-10">
               <Link href="/contact" className="btn-primary px-8 py-4 text-base">
                 Démarrer mon projet <ArrowRight className="w-5 h-5" />
               </Link>
@@ -196,54 +173,187 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 <Phone className="w-5 h-5" /> {business.phone}
               </a>
             </div>
+
+            {/* Stats hero */}
+            <div className="grid grid-cols-3 gap-4 max-w-2xl">
+              {content.stats.map((s) => (
+                <div key={s.label} className="border-l-2 border-orange-500 pl-4">
+                  <div className="text-xl md:text-2xl lg:text-3xl font-bold text-white">{s.value}</div>
+                  <div className="text-xs text-dark-400">{s.label}</div>
+                </div>
+              ))}
+            </div>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* BENEFITS */}
+      {/* PROBLEM */}
+      <section className="section-padding bg-dark-800/30 border-y border-white/5">
+        <div className="container-custom">
+          <SectionHeader
+            badge="Le constat"
+            title={content.problemTitle}
+            titleHighlight={content.problemHighlight}
+            description={content.problemDescription}
+          />
+          <div className="grid md:grid-cols-3 gap-6">
+            {content.problemStats.map((stat, i) => (
+              <AnimatedSection key={i} delay={i * 100}>
+                <div className="card h-full">
+                  <div className="text-4xl font-bold text-orange-400 mb-3">{stat.value}</div>
+                  <p className="text-dark-200">{renderInlineBold(stat.text)}</p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+          <AnimatedSection className="mt-12 max-w-3xl mx-auto text-center">
+            <p className="text-dark-300 text-lg leading-relaxed">
+              {content.problemConclusion}
+            </p>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section className="section-padding">
+        <div className="container-custom">
+          <SectionHeader
+            badge="Ce qui fait la différence"
+            title="Tout ce qui fait un service"
+            titleHighlight="vraiment performant"
+            description={content.featuresIntro}
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {content.features.map((f, i) => {
+              const FIcon = iconMap[f.icon as keyof typeof iconMap] ?? CheckCircle2;
+              return (
+                <AnimatedSection key={f.title} delay={i * 80}>
+                  <div className="card h-full">
+                    <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                      <FIcon className="w-6 h-6 text-orange-400" />
+                    </div>
+                    <h3 className="text-white font-bold text-lg mb-2">{f.title}</h3>
+                    <p className="text-dark-300 text-sm leading-relaxed">{f.desc}</p>
+                  </div>
+                </AnimatedSection>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* PROCESS */}
+      <section className="section-padding bg-dark-800/30 border-y border-white/5">
+        <div className="container-custom">
+          <SectionHeader
+            badge="Ma méthode"
+            title="Un process humain,"
+            titleHighlight="sans approximation"
+            description="Avant la moindre action, je veux tout savoir de votre activité. C'est cette rigueur qui fait la différence."
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {content.process.map((p, i) => {
+              const PIcon = iconMap[p.icon as keyof typeof iconMap] ?? CheckCircle2;
+              return (
+                <AnimatedSection key={p.step} delay={i * 100}>
+                  <div className="card h-full relative">
+                    <div className="absolute top-6 right-6 text-5xl font-bold text-orange-500/15">
+                      {p.step}
+                    </div>
+                    <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4">
+                      <PIcon className="w-6 h-6 text-orange-400" />
+                    </div>
+                    <h3 className="text-white font-bold text-lg mb-2">{p.title}</h3>
+                    <p className="text-dark-300 text-sm leading-relaxed">{p.desc}</p>
+                  </div>
+                </AnimatedSection>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* WHO IT'S FOR */}
+      <section className="section-padding">
+        <div className="container-custom">
+          <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+            <AnimatedSection>
+              <span className="badge mb-4">À qui ça s&apos;adresse</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                {content.targetTitle}{" "}
+                <span className="text-gradient">entreprises locales</span>{" "}
+                du Morbihan
+              </h2>
+              <p className="text-dark-300 text-lg leading-relaxed">
+                {content.targetIntro}
+              </p>
+            </AnimatedSection>
+
+            <AnimatedSection delay={150}>
+              <div className="card">
+                <h3 className="text-white font-bold text-lg mb-4">Clients types :</h3>
+                <ul className="space-y-3">
+                  {content.targets.map((t) => (
+                    <li key={t} className="flex items-start gap-3 text-dark-200">
+                      <CheckCircle2 className="w-5 h-5 text-orange-400 shrink-0 mt-0.5" />
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT'S INCLUDED */}
       <section className="section-padding bg-dark-800/30 border-y border-white/5">
         <div className="container-custom">
           <SectionHeader
             badge="Ce qui est inclus"
             title="Une prestation complète,"
             titleHighlight="sans options cachées"
-            description="Tout ce dont une entreprise locale a besoin pour être visible et convertir, intégré dès la livraison."
+            description="Pas de menu à la carte ni de surprises au moment de la facture. Tout est intégré dès la prestation initiale."
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {defaultBenefits.map((b, i) => (
-              <AnimatedSection key={b} delay={i * 60}>
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {content.included.map((block, i) => (
+              <AnimatedSection key={block.title} delay={i * 100}>
                 <div className="card h-full">
-                  <CheckCircle2 className="w-7 h-7 text-orange-400 mb-3" />
-                  <p className="text-dark-200 leading-relaxed">{b}</p>
+                  <h3 className="text-white font-bold text-xl mb-5 flex items-center gap-2">
+                    <span className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400 text-sm font-bold">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {block.title}
+                  </h3>
+                  <ul className="space-y-3">
+                    {block.items.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-dark-200">
+                        <CheckCircle2 className="w-5 h-5 text-orange-400 shrink-0 mt-0.5" />
+                        <span className="text-sm leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </AnimatedSection>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* PROCESS */}
-      <section className="section-padding">
-        <div className="container-custom">
-          <SectionHeader
-            badge="Ma méthode"
-            title="Un process humain,"
-            titleHighlight="sans approximation"
-            description="Avant de démarrer, je veux tout comprendre de votre activité. C'est cette rigueur qui fait la différence."
-          />
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {defaultProcess.map((p, i) => (
-              <AnimatedSection key={p.step} delay={i * 100}>
-                <div className="card h-full relative">
-                  <div className="absolute top-6 right-6 text-5xl font-bold text-orange-500/15">
-                    {p.step}
-                  </div>
-                  <h3 className="text-white font-bold text-lg mb-2 pr-12">{p.title}</h3>
-                  <p className="text-dark-300 text-sm leading-relaxed">{p.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
+          <AnimatedSection className="mt-12 max-w-3xl mx-auto">
+            <div className="rounded-3xl p-8 md:p-10 bg-gradient-to-br from-orange-500/15 via-orange-500/5 to-transparent border border-orange-500/20 text-center">
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                Chaque projet est unique
+              </h3>
+              <p className="text-dark-200 text-base md:text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
+                Votre métier, votre zone, votre concurrence : tout est différent. Je préfère prendre 30 minutes pour comprendre votre projet et vous proposer un <strong className="text-white">devis sur-mesure adapté à vos objectifs</strong>, plutôt qu&apos;un tarif générique.
+              </p>
+              <Link href="/contact" className="btn-primary px-8 py-4 text-base inline-flex">
+                Obtenir mon devis personnalisé <ArrowRight className="w-5 h-5" />
+              </Link>
+              <p className="text-dark-500 text-xs mt-4">
+                Brief offert · Réponse sous 48h · Aucun engagement
+              </p>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -257,12 +367,12 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             <div className="flex flex-wrap gap-3 justify-center max-w-4xl mx-auto mb-6">
               {topCities.map((city) => (
                 <Link
-                  key={city}
-                  href={`/zones-intervention/${city.toLowerCase().replace(/[ëé]/g, "e").replace(/\s+/g, "-")}`}
+                  key={city.slug}
+                  href={`/zones-intervention/${city.slug}`}
                   className="bg-dark-700 border border-white/10 text-dark-200 hover:text-orange-400 hover:border-orange-500/30 text-sm px-4 py-2 rounded-full transition-colors"
                 >
                   <MapPin className="w-3.5 h-3.5 inline mr-1.5 text-orange-400" />
-                  {city}
+                  {city.name}
                 </Link>
               ))}
             </div>
@@ -317,10 +427,10 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           <SectionHeader
             badge="Questions fréquentes"
             title="Tout ce que vous voulez savoir"
-            titleHighlight="sur ce service"
+            titleHighlight="avant de vous lancer"
           />
           <div className="space-y-4">
-            {defaultFaqs.map((faq, i) => (
+            {content.faqs.map((faq, i) => (
               <AnimatedSection key={faq.q} delay={i * 60}>
                 <details className="group card cursor-pointer">
                   <summary className="flex items-start justify-between gap-4 list-none">
@@ -341,7 +451,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
-      {/* Contact quick block */}
+      {/* CONTACT QUICK */}
       <section className="section-padding">
         <div className="container-custom max-w-4xl">
           <AnimatedSection>
@@ -367,8 +477,8 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
       </section>
 
       <CTABanner
-        title={`Prêt à passer à ${service.shortName.toLowerCase()} ?`}
-        description="Brief offert de 30 min en visio pour comprendre votre projet et vous proposer un devis précis sous 48h. Aucun engagement."
+        title={content.finalCtaTitle}
+        description="Brief offert de 30 min en visio pour comprendre votre projet, vos objectifs et vous proposer un devis précis sous 48h. Aucun engagement."
         primaryLabel="Démarrer mon projet"
         secondaryLabel="Voir les autres services"
         secondaryHref="/services"
